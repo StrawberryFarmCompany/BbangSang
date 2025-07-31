@@ -55,4 +55,17 @@ public class PlayerMove : MonoBehaviour
             Rotate(LookDirection);
         }
     }
+
+    void OnInteract(InputValue inputValue)
+    {
+        if(inputValue.isPressed)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, lookDirection, 1f);
+            if(hit.collider != null)
+            {
+                BaseInteractable baseInteractable = hit.collider.GetComponent<BaseInteractable>();
+                baseInteractable?.Interact();
+            }
+        }
+    }
 }
