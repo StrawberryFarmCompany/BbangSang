@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +25,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"보는 방향 : {LookDirection}");
+        // Debug.Log($"보는 방향 : {LookDirection}");
     }
 
     private void FixedUpdate()
@@ -60,9 +61,11 @@ public class PlayerMove : MonoBehaviour
     {
         if(inputValue.isPressed)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, lookDirection, 1f);
+            LayerMask mask = LayerMask.GetMask("Interactable");
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, lookDirection, 3f, mask);
             if(hit.collider != null)
             {
+                Debug.Log($"{hit.collider.name}");
                 BaseInteractable baseInteractable = hit.collider.GetComponent<BaseInteractable>();
                 baseInteractable?.Interact();
             }
