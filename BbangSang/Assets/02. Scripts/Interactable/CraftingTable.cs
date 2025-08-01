@@ -10,6 +10,14 @@ public class CraftingTable : BaseInteractable
     public override void Interact()
     {
         craftingUI.SetActive(true);
-        Debug.Log("제작테이블 오픈");
+        isUIOpen = true;
+        Debug.Log("제작테이블 열림");
+    }
+
+    public void CloseUI()
+    {
+        craftingUI.SetActive(false);
+        isUIOpen = false;
+        Debug.Log("제작테이블 닫힘");
     }
 }
