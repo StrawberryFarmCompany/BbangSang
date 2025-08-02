@@ -1,0 +1,25 @@
+{
+    "Recipes": [
+        {
+            "ID": 1,
+            "Name": "식빵",
+            "RecipesPrice": 0,
+            "BreadPrice": 15,
+            "Description": "겉은 쫄깃하고 속은 촉촉한 기본적인 식빵입니다."
+        },
+        {
+            "ID": 2,
+            "Name": "소보로 빵",
+            "RecipesPrice": 30000,
+            "BreadPrice": 22,
+            "Description": "고소한 냄새가 솔솔 나는 소보로빵 입니다."
+        },
+        {
+            "ID": 3,
+            "Name": "크림 빵",
+            "RecipesPrice": 100000,
+            "BreadPrice": 30,
+            "Description": "달콤한 크림이 가득 들어간 크림빵 입니다."
+        }
+    ]
+}
