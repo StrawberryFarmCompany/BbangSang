@@ -5,21 +5,30 @@ using UnityEngine.UI;
 
 public class RecipeTableUI : MonoBehaviour
 {
-    [SerializeField] private Button noramlBread;
-    [SerializeField] private Button creamBread;
+    [SerializeField] private Button whiteBread;
+    [SerializeField] private Button soboroBread;
     [SerializeField] private Button exit;
+    public GameObject recipeInfoPanel;
 
 
-    // 기본 빵 정보
-    public void normalBreadButton()
+    private void Start()
     {
-        // 버튼 누르면 정보 표시
+        //onClick에 추가
+        whiteBread.onClick.AddListener(WhiteBreadButton);
+        soboroBread.onClick.AddListener(SoboroBreadButton);
+        exit.onClick.AddListener(ExitButton);
     }
 
-    // 크림 빵 정보
-    public void creamBreadButton()
+    // 식빵 정보
+    public void WhiteBreadButton()
     {
-        // 버튼 누르면 정보 표시
+        recipeInfoPanel.SetActive(true);
+    }
+
+    // 소보로 빵 정보
+    public void SoboroBreadButton()
+    {
+        recipeInfoPanel.SetActive(true);
     }
 
     // 패널 닫기

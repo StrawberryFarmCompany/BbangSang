@@ -5,14 +5,12 @@ public class BreadUIManager : MonoBehaviour
 {
     public GameObject breadPanelPrefab;    // BreadPanel 프리팹
     public Transform panelParent;          // UI 패널들이 붙을 부모 오브젝트
-    public GameObject openButton;          // UI 열기 버튼
 
     private BreadList breadList;
 
     void Start()
     {
         LoadBreadData();
-        openButton.SetActive(true); // 초기엔 버튼만 보임
     }
 
     public void LoadBreadData()
