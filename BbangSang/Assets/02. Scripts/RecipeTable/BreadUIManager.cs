@@ -16,6 +16,11 @@ public class BreadUIManager : MonoBehaviour
     public void LoadBreadData()
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("RecipesData");
+        if (jsonFile == null)
+        {
+            Debug.LogError("Error: 'RecipesData' 파일을 찾을 수 없습니다.");
+            return;
+        }
         breadList = JsonUtility.FromJson<BreadList>(jsonFile.text);
     }
 
@@ -35,7 +40,7 @@ public class BreadUIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"'{id}' 이라는 이름의 빵을 찾을 수 없습니다.");
+            Debug.LogWarning($"'{id}' 를 찾을 수 없습니다.");
         }
     }
 }
