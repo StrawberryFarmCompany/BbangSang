@@ -665,8 +665,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1561015376180202107, guid: 56853452421302545bac5940e0dbd74f, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 929152656}
   m_SourcePrefab: {fileID: 100100000, guid: 56853452421302545bac5940e0dbd74f, type: 3}
+--- !u!1 &929152655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1561015376180202107, guid: 56853452421302545bac5940e0dbd74f, type: 3}
+  m_PrefabInstance: {fileID: 929152654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &929152656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929152655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd26f7b66235f642a58282e2db111cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    name: 
+    recipes: 
+    craftingTableLevel: 0
+    recipeTableLevel: 0
+    ovenLevel: 0
+    displayLevel: 0
+    uniforms: 
+    employees: 
+    money: 0
+    debt: 0
 --- !u!1 &988486639
 GameObject:
   m_ObjectHideFlags: 0
