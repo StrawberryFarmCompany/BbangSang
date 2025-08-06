@@ -8,16 +8,37 @@ public class Player : MonoBehaviour
     public static string SaveFilePath => Application.persistentDataPath + "/playerData.json";
     public PlayerData playerData;
 
-    void Save()
+    private void Awake()
+    {
+        GameManager.Instance.Player = this;
+    }
+
+    public void Save()
     {
         var saveData = JsonUtility.ToJson(playerData);
         File.WriteAllText(SaveFilePath, saveData);
+        Debug.Log($"{SaveFilePath}");
     }
 
-    void Load()
+    public void Load()
     {
-        var loadData = File.ReadAllText(SaveFilePath);
-        if(loadData == null || loadData == "")
+        string loadData;
+        try
+        {
+            loadData = File.ReadAllText(SaveFilePath);
+        }catch (FileNotFoundException)
+        {
+            Debug.LogError("Player data file not found. Creating new player data.");
+            CreateData();
+            return;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error reading player data file: {e.Message}");
+            return;
+        }
+
+        if (loadData == null || loadData == "")
         {
             Debug.LogError("There's No Player Data");
             Debug.Log("Creating New Player Data");
@@ -45,19 +66,6 @@ public class Player : MonoBehaviour
             money = 0,
             debt = 300000000 // ºú 3¾ï
         };
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
 

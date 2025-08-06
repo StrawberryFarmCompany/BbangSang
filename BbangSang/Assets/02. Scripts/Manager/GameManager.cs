@@ -19,4 +19,17 @@ public class GameManager : MonoBehaviour
     public Player player;
     public Player Player {get; set;}
 
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
