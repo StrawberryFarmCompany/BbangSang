@@ -354,6 +354,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OvenUI
       objectReference: {fileID: 0}
+    - target: {fileID: 271768971550061659, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6556299533525612222, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -582,6 +586,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2118295792}
     m_Modifications:
+    - target: {fileID: 1755351111548092474, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -70
+      objectReference: {fileID: 0}
     - target: {fileID: 3080108903914499127, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -665,6 +673,42 @@ PrefabInstance:
     - target: {fileID: 3965888500976941725, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
       propertyPath: m_Name
       value: CraftingUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965888500976941725, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695756453634107265, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7714786644794988510}
+    - target: {fileID: 6490360173454882158, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7714786644794988510}
+    - target: {fileID: 6582085244458807217, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6582085244458807217, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6582085244458807217, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6582085244458807217, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6582085244458807217, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6582085244458807217, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -828,6 +872,10 @@ PrefabInstance:
     - target: {fileID: 6611522738328694078, guid: d6ff95f38aeb7c746a5711d997adaa4c, type: 3}
       propertyPath: m_Name
       value: RecipeUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611522738328694078, guid: d6ff95f38aeb7c746a5711d997adaa4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1014,6 +1062,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d87ab4093d8cd08469d16136be430d99, type: 3}
+--- !u!114 &7714786644794988510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7735170719643726314, guid: d87ab4093d8cd08469d16136be430d99, type: 3}
+  m_PrefabInstance: {fileID: 7714786644794988509}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee2f7da402e34e47bc82f966c4fc43f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
