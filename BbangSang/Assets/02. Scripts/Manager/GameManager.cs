@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum GameState
@@ -10,11 +11,10 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    private GameState curGameState = GameState.Title;
-    public GameState CurGameState { get; set; }
+    public GameState CurGameState { get; set; } = GameState.Title;
 
-    private float curInGameTime;
-    private float maxInGameTime = 300f; // 5분
+    public float curInGameTime;
+    public float maxInGameTime = 300f; // 5분
 
     private static GameManager _instance; 
     public static GameManager Instance
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
                 GameObject obj = new GameObject("GameManager");
                 _instance = obj.AddComponent<GameManager>();                
             }
+
             return _instance;
         }
     }
@@ -60,4 +61,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GameState GetNextState(GameState gameState)
+    {
+        switch(gameState)
+        {
+            case GameState.Title: 
+                return GameState.PreGame;
+            case GameState.PreGame:
+                return GameState.InGame;
+            case GameState.InGame:
+                // 게임 시작할 때 시간 초기화
+                curInGameTime = 0f;
+                return GameState.PostGame;
+            case GameState.PostGame:
+                return GameState.PreGame;
+            default:
+                return GameState.Title;
+        }
+    }
 }

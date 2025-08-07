@@ -16,6 +16,7 @@ public class TitleUI : MonoBehaviour
 
     void GoToGameScene()
     {
+        GameManager.Instance.CurGameState = GameManager.Instance.GetNextState(GameState.Title);
         SceneManager.LoadScene("KitchenScene");
     }
 }
