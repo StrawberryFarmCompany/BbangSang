@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5647248457082368559}
   - component: {fileID: 1143135033887063775}
   - component: {fileID: 1096947637769038546}
+  - component: {fileID: 3988814970547445346}
   - component: {fileID: 7533483610326963749}
   m_Layer: 0
   m_Name: Player
@@ -138,6 +139,29 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3988814970547445346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561015376180202107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd26f7b66235f642a58282e2db111cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    name: test
+    recipes: 
+    craftingTableLevel: 0
+    recipeTableLevel: 0
+    ovenLevel: 0
+    displayLevel: 0
+    uniforms: 
+    employees: 
+    money: 0
+    debt: 0
 --- !u!114 &7533483610326963749
 MonoBehaviour:
   m_ObjectHideFlags: 0

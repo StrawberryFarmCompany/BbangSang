@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
     protected Rigidbody2D _rigidbody;
 
@@ -55,7 +55,7 @@ public class PlayerMove : MonoBehaviour
             lookDirection = movementDirection;
             Rotate(LookDirection);
         }
-    }
+    }   
 
     void OnInteract(InputValue inputValue)
     {
