@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
             recipeTableLevel = 1,
             ovenLevel = 1,
             displayLevel = 1,
+            inGameDay = 1,
             uniforms = new List<int>(),
             wearedUniformId = null,
             employees = new List<int>(),
@@ -78,6 +79,7 @@ public class PlayerData
     public int recipeTableLevel;
     public int ovenLevel;
     public int displayLevel;
+    public int inGameDay;
     public List<int> uniforms;
     public int? wearedUniformId;
     public List<int> employees;
