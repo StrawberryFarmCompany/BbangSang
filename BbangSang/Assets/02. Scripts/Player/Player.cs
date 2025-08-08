@@ -68,6 +68,14 @@ public class Player : MonoBehaviour
             debt = 300000000 // ºú 3¾ï
         };
     }
+
+    public void CreateDataWithName(string playerName)
+    {
+        CreateData();
+
+        if (!string.IsNullOrWhiteSpace(playerName))
+            playerData.name = playerName.Trim();
+    }
 }
 
 [System.Serializable]

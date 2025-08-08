@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public float curInGameTime;
     public float maxInGameTime = 300f; // 5분
 
+    public bool IsNewGame { get; set; } = false;  //새로하기 눌렀는지 판단
+    public string PendingNewPlayerName { get; set; } = null;  //입력한 이름
+
     private static GameManager _instance; 
     public static GameManager Instance
     {
