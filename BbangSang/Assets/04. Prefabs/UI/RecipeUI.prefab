@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 1023669209917269985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5377805698534012515}
@@ -286,8 +286,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 10}
-  m_SizeDelta: {x: 400, y: 400}
+  m_AnchoredPosition: {x: -300, y: 0}
+  m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &6234226849640775520
 CanvasRenderer:
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8861246466285701296, guid: 37bf4a3f6749d2243a82db0daeb3e6da, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BreadUIManager, Assembly-CSharp
         m_MethodName: ShowBreadInfoByID
         m_Mode: 3
@@ -419,8 +419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 10}
-  m_SizeDelta: {x: 400, y: 400}
+  m_AnchoredPosition: {x: 300, y: 0}
+  m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &9174569778029511264
 CanvasRenderer:
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8861246466285701296, guid: 37bf4a3f6749d2243a82db0daeb3e6da, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BreadUIManager, Assembly-CSharp
         m_MethodName: ShowBreadInfoByID
         m_Mode: 3
