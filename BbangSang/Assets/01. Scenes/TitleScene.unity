@@ -1920,7 +1920,7 @@ MonoBehaviour:
   nameInput: {fileID: 710391454}
   confirmNameButton: {fileID: 1792319241}
   cancelNameButton: {fileID: 1671133710}
-  nextSceneName: TitleTestScene
+  nextSceneName: KitchenScene
 --- !u!1 &1576139960
 GameObject:
   m_ObjectHideFlags: 0
