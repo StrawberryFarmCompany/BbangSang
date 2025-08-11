@@ -29,5 +29,9 @@ public class GameSceneBoot : MonoBehaviour
             player.Load();
             player.Save();
         }
+
+        var p = GameManager.Instance.Player;
+        if (p != null && p.playerData != null)
+            Debug.Log($"[SAVE CHECK] Player name = {p.playerData.name}");
     }
 }
