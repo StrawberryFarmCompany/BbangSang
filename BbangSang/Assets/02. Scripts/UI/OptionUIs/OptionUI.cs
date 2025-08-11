@@ -56,7 +56,4 @@ public class OptionUI : MonoBehaviour
         state = OptionState.Sound;
         SettingUI();
     }
-
-    
-    
 }
