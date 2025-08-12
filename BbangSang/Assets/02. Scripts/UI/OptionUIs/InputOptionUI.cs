@@ -4,12 +4,14 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InputOptionUI : BaseOptionUI
 {
-    public InputActionAsset inputAction;
     public GameObject settingPrefab;
     public Transform contentParent;
+
+    public SettingChangePanel settingChangePanel;
 
     private void Awake()
     {
@@ -18,16 +20,15 @@ public class InputOptionUI : BaseOptionUI
 
     private void Start()
     {
-        if(contentParent.childCount != 0)
-        {
-            for (int i = 0; i < contentParent.childCount; i++)
-            {
-                Destroy(contentParent.GetChild(i));
-                i--;
-            }
-        }
+        InputPrefabSettings();
+    }
 
-        foreach (var action in inputAction.FindActionMap("Player").actions)
+    public void InputPrefabSettings()
+    {
+        for (int i = contentParent.childCount - 1; i >= 0; i--)
+            Destroy(contentParent.GetChild(i).gameObject);
+
+        foreach (var action in InputManager.Instance.runtimeActions.FindActionMap("Player").actions)
         {
             if (action.bindings.Count > 1 && action.bindings[0].isComposite)
             {
@@ -37,8 +38,9 @@ public class InputOptionUI : BaseOptionUI
                     if (action.bindings[i].isComposite) continue;
                     var optionItem = Instantiate(settingPrefab, contentParent);
                     var optionItemContent = optionItem.GetComponent<KeySettingContent>();
-                    optionItemContent.actionText.text = action.bindings[i].name;   
-                    optionItemContent.keyText.text = action.GetBindingDisplayString(i); 
+                    optionItemContent.actionText.text = action.bindings[i].name;
+                    optionItemContent.keyText.text = action.GetBindingDisplayString(i);
+                    optionItemContent.Init(action, i, settingChangePanel);
                 }
             }
             else
@@ -47,8 +49,10 @@ public class InputOptionUI : BaseOptionUI
                 var optionItemContent = optionItem.GetComponent<KeySettingContent>();
                 optionItemContent.actionText.text = action.name;
                 optionItemContent.keyText.text = action.bindings[0].ToDisplayString();
+                optionItemContent.Init(action, 0, settingChangePanel);
             }
         }
     }
 
+    
 }

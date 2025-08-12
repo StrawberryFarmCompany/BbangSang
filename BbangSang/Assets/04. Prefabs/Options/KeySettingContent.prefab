@@ -271,6 +271,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionText: {fileID: 3944372540853355571}
   keyText: {fileID: 1013455646702721332}
+  changeButton: {fileID: 4077937334626935959}
+  targetAction:
+    m_Name: Target
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: acdf2c53-4959-4caa-b39e-6e3b8a1c2b75
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  bindingIndex: 0
 --- !u!1 &8351235480370896005
 GameObject:
   m_ObjectHideFlags: 0

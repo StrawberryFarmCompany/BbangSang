@@ -17,20 +17,28 @@ public class OptionUI : MonoBehaviour
 
     public Button inputButton;
     public Button soundButton;
+    public Button restoreButton;
+
+    private void Awake()
+    {
+        state = OptionState.Input;
+    }
 
     private void OnEnable()
     {
         inputButton.onClick.RemoveAllListeners();
         soundButton.onClick.RemoveAllListeners();
+        restoreButton.onClick.RemoveAllListeners();
 
         inputButton.onClick.AddListener(OnClickInput);
         soundButton.onClick.AddListener(OnClickSound);
+        restoreButton.onClick.AddListener(OnClickRestore);
     }
     void Start()
     {
-        state = OptionState.Input;
         inputUi.Init(this);
         soundUi.Init(this);
+        SettingUI();
     }
 
     private void OnDisable()
@@ -55,5 +63,11 @@ public class OptionUI : MonoBehaviour
     {
         state = OptionState.Sound;
         SettingUI();
+    }
+
+    private void OnClickRestore()
+    {
+        InputManager.Instance.ResetToDefault();
+        inputUi.InputPrefabSettings();
     }
 }
