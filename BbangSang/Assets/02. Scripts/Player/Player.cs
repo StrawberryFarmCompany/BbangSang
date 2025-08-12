@@ -13,6 +13,41 @@ public class Player : MonoBehaviour
         GameManager.Instance.Player = this;
     }
 
+    public long Money
+    {
+        get
+        {
+            if (playerData == null) return 0;
+
+            return playerData.money;
+        }
+    }
+
+    //플레이어 돈 차감 함수
+    public bool TrySpendMoney(long amount)
+    {
+        if (playerData == null) return false;
+
+        if (amount < 0) return false;
+
+        if (playerData.money < amount) return false;
+
+        playerData.money -= amount;
+        Debug.Log($"[MONEY] Spend {amount:N0} → Now {playerData.money:N0}");    //돈 사용 디버그 로그
+        return true;
+    }
+
+    //플레이어 돈 추가 함수
+    public void AddMoney(long amount)
+    {
+        if (playerData == null) return;
+
+        if (amount < 0)  return;
+
+        playerData.money += amount;
+        Debug.Log($"[MONEY] Add {amount:N0} → Now {playerData.money:N0}");  //돈 추가 디버그 로그
+    }
+
     public void Save()
     {
         var saveData = JsonUtility.ToJson(playerData);
@@ -30,6 +65,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Player data file not found. Creating new player data.");
             CreateData();
+            Debug.Log($"[LOAD→NEW] Money: {playerData.money:N0}");  //불러오기 돈 확인 디버그 로그
             return;
         }
         catch (System.Exception e)
@@ -43,10 +79,12 @@ public class Player : MonoBehaviour
             Debug.LogError("There's No Player Data");
             Debug.Log("Creating New Player Data");
             CreateData();
+            Debug.Log($"[LOAD→NEW] Money: {playerData.money:N0}");  //불러오기 돈 확인 디버그 로그
         }
         else
         {
             playerData = JsonUtility.FromJson<PlayerData>(loadData);
+            Debug.Log($"[LOAD] Money: {playerData.money:N0}");      //불러오기 돈 확인 디버그 로그
         }
     }
 
