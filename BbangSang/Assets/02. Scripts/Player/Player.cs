@@ -7,10 +7,12 @@ public class Player : MonoBehaviour
 {
     public static string SaveFilePath => Application.persistentDataPath + "/playerData.json";
     public PlayerData playerData;
+    public PlayerControl control;
 
     private void Awake()
     {
         GameManager.Instance.Player = this;
+        control = GetComponent<PlayerControl>();
     }
 
     public void Save()
