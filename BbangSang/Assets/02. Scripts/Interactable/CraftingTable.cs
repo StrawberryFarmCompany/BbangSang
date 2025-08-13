@@ -89,7 +89,8 @@ public class CraftingTable : BaseInteractable
 
         level = targetLevel;
         player.playerData.craftingTableLevel = level;
-        ResetTime();
+        
+        curTime = GetMaxTime();
 
         if (savePlayerOnUpgrade) player.Save();
 
