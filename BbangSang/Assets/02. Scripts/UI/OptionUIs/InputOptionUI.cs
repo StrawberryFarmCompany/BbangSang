@@ -25,34 +25,34 @@ public class InputOptionUI : BaseOptionUI
 
     public void InputPrefabSettings()
     {
+        // 기존 UI 제거
         for (int i = contentParent.childCount - 1; i >= 0; i--)
             Destroy(contentParent.GetChild(i).gameObject);
 
         foreach (var action in InputManager.Instance.runtimeActions.FindActionMap("Player").actions)
         {
-            if (action.bindings.Count > 1 && action.bindings[0].isComposite)
+            for (int i = 0; i < action.bindings.Count; i++)
             {
-                // Composite (예: 2D Vector)
-                for (int i = 0; i < action.bindings.Count; i++)
-                {
-                    if (action.bindings[i].isComposite) continue;
-                    var optionItem = Instantiate(settingPrefab, contentParent);
-                    var optionItemContent = optionItem.GetComponent<KeySettingContent>();
-                    optionItemContent.actionText.text = action.bindings[i].name;
-                    optionItemContent.keyText.text = action.GetBindingDisplayString(i);
-                    optionItemContent.Init(action, i, settingChangePanel);
-                }
-            }
-            else
-            {
+                var binding = action.bindings[i];
+
+                // Composite 루트는 버튼 안 만듦
+                if (binding.isComposite)
+                    continue;
+
                 var optionItem = Instantiate(settingPrefab, contentParent);
                 var optionItemContent = optionItem.GetComponent<KeySettingContent>();
-                optionItemContent.actionText.text = action.name;
-                optionItemContent.keyText.text = action.bindings[0].ToDisplayString();
-                optionItemContent.Init(action, 0, settingChangePanel);
+
+                // 이름 표시 (Composite 파트면 파트 이름 아니면 액션 이름)
+                optionItemContent.actionText.text = binding.isPartOfComposite ? binding.name : action.name;
+
+                // 현재 바인딩 키
+                string curBindingKeyText = action.GetBindingDisplayString(i);
+                optionItemContent.keyText.text = curBindingKeyText == InputActionKey.anyKey ? string.Empty : curBindingKeyText.ToUpper();
+
+                optionItemContent.Init(action, i, settingChangePanel);
             }
         }
     }
 
-    
+
 }

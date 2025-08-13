@@ -44,11 +44,11 @@ public class KeySettingContent : MonoBehaviour
         // UI Ç¥½Ã
         settingChangePanel = panel;
         
-
-        keyText.text = InputControlPath.ToHumanReadableString(
+        string readableText = InputControlPath.ToHumanReadableString(
             action.bindings[index].effectivePath,
             InputControlPath.HumanReadableStringOptions.OmitDevice
         );
+        keyText.text = readableText == InputActionKey.anyKey ? string.Empty : readableText.ToUpper();
     }
 
     private void OnChangeKeyClicked()
@@ -58,10 +58,12 @@ public class KeySettingContent : MonoBehaviour
 
         InputManager.Instance.RebindKey(targetAction, bindingIndex, () =>
         {
-            keyText.text = InputControlPath.ToHumanReadableString(
+            string readableText = InputControlPath.ToHumanReadableString(
             targetAction.bindings[bindingIndex].effectivePath,
             InputControlPath.HumanReadableStringOptions.OmitDevice
             );
+
+            keyText.text = readableText == InputActionKey.anyKey ? string.Empty : readableText.ToUpper();
             settingChangePanel.gameObject.SetActive(false);
             InputManager.Instance.SaveBindings();
         });

@@ -1,11 +1,12 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : Singleton<InputManager>
 {
     [SerializeField] private InputActionAsset defaultActions; 
-     public InputActionAsset runtimeActions;
+    public InputActionAsset runtimeActions;
 
     private InputActionRebindingExtensions.RebindingOperation currentRebindOperation;
     private void Awake()
@@ -17,6 +18,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (PlayerPrefs.HasKey(PlayerPrefsKey.InputSettingKey))
         {
+            Debug.Log("얍");
             LoadBindings();
         }
         else
@@ -32,9 +34,10 @@ public class InputManager : Singleton<InputManager>
     {
         try
         {
-            string json = runtimeActions.ToJson();
+            string json = runtimeActions.SaveBindingOverridesAsJson();
             PlayerPrefs.SetString(PlayerPrefsKey.InputSettingKey, json);
             PlayerPrefs.Save();
+            Debug.Log("테스트 : " + PlayerPrefs.GetString(PlayerPrefsKey.InputSettingKey));
             Debug.Log("Input bindings saved to PlayerPrefs.");
         }
         catch (Exception e)
@@ -69,44 +72,116 @@ public class InputManager : Singleton<InputManager>
         if (action == null || bindingIndex < 0 || bindingIndex >= action.bindings.Count)
             return;
 
+        var binding = action.bindings[bindingIndex];
+
+        // Composite 루트는 직접 바인딩할 수 없음
+        if (binding.isComposite)
+        {
+            Debug.LogWarning($"'{binding.name}'은(는) Composite 루트 바인딩입니다. 개별 파트를 선택하세요.");
+            return;
+        }
+
+        // 이전 바인딩 저장 (override 있으면 그걸, 없으면 원래 경로)
+        string previousOverride = !string.IsNullOrEmpty(binding.overridePath)
+            ? binding.overridePath
+            : binding.path;
+
         action.Disable();
 
-        // 이전 바인딩 저장 (override가 있으면 그걸, 없으면 원래 경로)
-        string previousOverride = !string.IsNullOrEmpty(action.bindings[bindingIndex].overridePath)
-            ? action.bindings[bindingIndex].overridePath
-            : action.bindings[bindingIndex].path;
-
-        currentRebindOperation = action.PerformInteractiveRebinding(bindingIndex)
-            .WithControlsExcluding("Mouse")  // 마우스 입력 제외
+        currentRebindOperation = 
+            action.PerformInteractiveRebinding(bindingIndex)
+            .WithControlsExcluding("Mouse")
+            .WithControlsExcluding("<Keyboard>/backspace")
+            .OnPotentialMatch(operation =>
+            {
+                // Backspace 감지 시 할당 해제
+                if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+                {
+                    action.RemoveBindingOverride(bindingIndex);
+                    Debug.Log("할당을 삭제함");
+                    operation.Cancel();
+                    SaveBindings();
+                }
+            })
             .OnCancel(operation =>
             {
-                // 취소 시 이전 바인딩으로 복원
+                // 취소 시 복원
                 action.ApplyBindingOverride(bindingIndex, previousOverride);
 
+                Debug.Log($"리바인딩 취소: {binding.name} → {previousOverride}");
+
                 action.Enable();
+                SaveBindings();
                 operation.Dispose();
                 currentRebindOperation = null;
-
-                SaveBindings();
                 onComplete?.Invoke();
             })
             .OnComplete(operation =>
             {
-                // ESC 키 입력 시에도 이전 바인딩으로 복원 (추가 옵션)
-                if (operation.selectedControl != null && operation.selectedControl.name.ToLower() == "escape")
+                if (operation.selectedControl != null)
                 {
-                    action.ApplyBindingOverride(bindingIndex, previousOverride);
-                    Debug.Log("ESC 눌러서 리바인딩 취소됨.");
+                    string controlName = operation.selectedControl.name.ToLower();
+                    var newPath = operation.selectedControl.path;
+
+                    if (controlName == "escape")
+                    {
+                        action.ApplyBindingOverride(bindingIndex, previousOverride);
+                        Debug.Log($"ESC 입력 → '{binding.name}' 복원됨.");
+                    }
+                    else if (!IsBindingConflict(action, bindingIndex, newPath))
+                    {
+                        action.ApplyBindingOverride(bindingIndex, newPath);
+                        Debug.Log($"바인딩 변경: {binding.name} → {newPath}");
+                    }
+                    else
+                    {
+                        action.ApplyBindingOverride(bindingIndex, previousOverride);
+                        Debug.Log("동일한 키가 있음.");
+                    }
+
+                    SaveBindings();
                 }
 
                 action.Enable();
                 operation.Dispose();
-                currentRebindOperation = null;
-
-                SaveBindings();
                 onComplete?.Invoke();
             });
 
+        Debug.Log($"리바인딩 시작: {action.name} ({binding.name})");
+
         currentRebindOperation.Start();
+    }
+
+    bool IsBindingConflict(InputAction targetAction, int targetBindingIndex, string newBindingPath)
+    {
+        if (string.IsNullOrEmpty(newBindingPath))
+            return false;
+
+        
+        if (!newBindingPath.StartsWith("<") && newBindingPath.Contains("/Keyboard/"))
+            newBindingPath = newBindingPath.Replace("/Keyboard/", "<Keyboard>/");
+        
+
+        var asset = targetAction.actionMap != null ? targetAction.actionMap.asset : null;
+
+        if (asset == null) return false;
+
+        var playerMap = asset.FindActionMap(InputActionKey.playerMap);
+
+        foreach(var action in playerMap)
+        {
+            for (int i = 0; i < action.bindings.Count;i++)
+            {
+                var b = action.bindings[i];
+
+                if (b.isComposite) continue;
+                if (action == targetAction && i == targetBindingIndex) continue;
+                if (string.IsNullOrEmpty(b.effectivePath)) continue;
+                if (string.Equals(b.effectivePath, newBindingPath)) return true;
+            }
+        }
+
+        
+        return false;
     }
 }
