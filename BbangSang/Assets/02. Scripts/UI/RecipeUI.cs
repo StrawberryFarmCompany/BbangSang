@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RecipeTableUI : MonoBehaviour
+public class RecipeUI : MonoBehaviour
 {
     [SerializeField] private Button whiteBread;
     [SerializeField] private Button soboroBread;

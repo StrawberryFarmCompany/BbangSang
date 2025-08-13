@@ -4,51 +4,26 @@ using UnityEngine;
 public enum GameState
 {
     Title,
-    PreGame, // »§ ¸¸µå´Â ½Ã°£
-    InGame, // »§ ÆÄ´Â ½Ã°£
-    PostGame // Á¤»ê ½Ã°£
+    PreGame, // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    InGame, // ï¿½ï¿½ ï¿½Ä´ï¿½ ï¿½Ã°ï¿½
+    PostGame // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public GameState CurGameState { get; set; } = GameState.Title;
 
     public float curInGameTime;
-    public float maxInGameTime = 300f; // 5ºÐ
+    public float maxInGameTime = 300f; // 5ï¿½ï¿½
 
-    public bool IsNewGame { get; set; } = false;  //»õ·ÎÇÏ±â ´­·¶´ÂÁö ÆÇ´Ü
-    public string PendingNewPlayerName { get; set; } = null;  //ÀÔ·ÂÇÑ ÀÌ¸§
+    public bool IsNewGame { get; set; } = false;  //ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½
+    public string PendingNewPlayerName { get; set; } = null;  //ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 
-    private static GameManager _instance; 
-    public static GameManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                GameObject obj = new GameObject("GameManager");
-                _instance = obj.AddComponent<GameManager>();                
-            }
-
-            return _instance;
-        }
-    }
 
     public Player player;
     public Player Player {get; set;}
 
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+
 
     public void Update()
     {
@@ -59,7 +34,7 @@ public class GameManager : MonoBehaviour
             {
                 curInGameTime = 0f;
                 CurGameState = GameState.PostGame;
-                Debug.Log("ÇÏ·ç ³¡");
+                Debug.Log("ï¿½Ï·ï¿½ ï¿½ï¿½");
             }
         }
     }
@@ -73,7 +48,7 @@ public class GameManager : MonoBehaviour
             case GameState.PreGame:
                 return GameState.InGame;
             case GameState.InGame:
-                // °ÔÀÓ ½ÃÀÛÇÒ ¶§ ½Ã°£ ÃÊ±âÈ­
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­
                 curInGameTime = 0f;
                 return GameState.PostGame;
             case GameState.PostGame:

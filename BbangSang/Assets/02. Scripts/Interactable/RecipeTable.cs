@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class RecipeTable : BaseInteractable
 {
-    [SerializeField] private GameObject recipeTablePanel;
+    [SerializeField] private GameObject recipeUI;
     public override void Interact()
     {
-        if (recipeTablePanel != null)
+        if (recipeUI != null)
         {
-            recipeTablePanel.SetActive(true);
+            recipeUI.SetActive(true);
             Debug.Log("레시피 테이블 보기");
         }
     }
