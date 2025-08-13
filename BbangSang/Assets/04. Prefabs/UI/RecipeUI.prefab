@@ -1616,14 +1616,14 @@ GameObject:
   - component: {fileID: 7029120754268840311}
   - component: {fileID: 4046304105333128270}
   - component: {fileID: 4736384887208352556}
-  - component: {fileID: 7192729433198445303}
+  - component: {fileID: 846152905241727050}
   m_Layer: 5
   m_Name: RecipeUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5273459652036490897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1631,7 +1631,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6324417940722999531}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1715,7 +1715,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7192729433198445303
+--- !u!114 &846152905241727050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1724,7 +1724,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6324417940722999531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4196a356b6f88df4c82971bd3e9cdd18, type: 3}
+  m_Script: {fileID: 11500000, guid: c70f39719f0acd94b94ca8fcc32ed053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whiteBread: {fileID: 5099209335918220669}
