@@ -19,7 +19,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     GameObject go = new GameObject();
                     _instance = go.AddComponent<T>();
                     go.name = $"[{typeof(T)}]";
-                    go.tag = "Singleton";
                     if(!Application.isBatchMode)
                     {
                         if(Application.isPlaying) DontDestroyOnLoad(go);
