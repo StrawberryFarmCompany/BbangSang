@@ -2,6 +2,8 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -9,16 +11,56 @@ public class InputManager : Singleton<InputManager>
     public InputActionAsset runtimeActions;
 
     private InputActionRebindingExtensions.RebindingOperation currentRebindOperation;
+    private InputSystemUIInputModule uiModule;
     private void Awake()
     {
-        runtimeActions = Instantiate(defaultActions);
+        if (runtimeActions == null &&  defaultActions != null)
+        {
+            runtimeActions = Instantiate(defaultActions);
+            runtimeActions.name = defaultActions.name + "_Runtime";
+        }
+        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        if(!Application.isBatchMode && Application.isPlaying)
+            DontDestroyOnLoad(gameObject);
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UIModuleSettings();
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // changed runtimeActions apply to EventSystem
+    private void UIModuleSettings()
+    {
+        uiModule =  FindObjectOfType<InputSystemUIInputModule>();
+        if (uiModule == null)
+        {
+            return;
+        }
+        uiModule.actionsAsset = runtimeActions;
+        uiModule.move = InputActionReference.Create(runtimeActions.FindAction("UI/Move"));
+        uiModule.submit = InputActionReference.Create(runtimeActions.FindAction("UI/Submit"));
+        uiModule.cancel = InputActionReference.Create(runtimeActions.FindAction("UI/Cancel"));
+        uiModule.point = InputActionReference.Create(runtimeActions.FindAction("UI/Point"));
+        uiModule.leftClick = InputActionReference.Create(runtimeActions.FindAction("UI/Click"));
+        uiModule.scrollWheel = InputActionReference.Create(runtimeActions.FindAction("UI/ScrollWheel"));
+        uiModule.rightClick = InputActionReference.Create(runtimeActions.FindAction("UI/RightClick"));
+        uiModule.middleClick = InputActionReference.Create(runtimeActions.FindAction("UI/MiddleClick"));
+        
+        Debug.Log("UI Module Settings Done.");
+    }
+    
     private void OnEnable()
     {
         if (PlayerPrefs.HasKey(PlayerPrefsKey.InputSettingKey))
         {
-            Debug.Log("얍");
             LoadBindings();
         }
         else
@@ -37,8 +79,6 @@ public class InputManager : Singleton<InputManager>
             string json = runtimeActions.SaveBindingOverridesAsJson();
             PlayerPrefs.SetString(PlayerPrefsKey.InputSettingKey, json);
             PlayerPrefs.Save();
-            Debug.Log("테스트 : " + PlayerPrefs.GetString(PlayerPrefsKey.InputSettingKey));
-            Debug.Log("Input bindings saved to PlayerPrefs.");
         }
         catch (Exception e)
         {
@@ -73,15 +113,13 @@ public class InputManager : Singleton<InputManager>
             return;
 
         var binding = action.bindings[bindingIndex];
-
-        // Composite 루트는 직접 바인딩할 수 없음
+        
+        // Composite example : Move
         if (binding.isComposite)
         {
-            Debug.LogWarning($"'{binding.name}'은(는) Composite 루트 바인딩입니다. 개별 파트를 선택하세요.");
             return;
         }
-
-        // 이전 바인딩 저장 (override 있으면 그걸, 없으면 원래 경로)
+        
         string previousOverride = !string.IsNullOrEmpty(binding.overridePath)
             ? binding.overridePath
             : binding.path;
@@ -94,21 +132,17 @@ public class InputManager : Singleton<InputManager>
             .WithControlsExcluding("<Keyboard>/backspace")
             .OnPotentialMatch(operation =>
             {
-                // Backspace 감지 시 할당 해제
+                // if input key is backspace, no key override.
                 if (Keyboard.current.backspaceKey.wasPressedThisFrame)
                 {
                     action.RemoveBindingOverride(bindingIndex);
-                    Debug.Log("할당을 삭제함");
                     operation.Cancel();
                     SaveBindings();
                 }
             })
             .OnCancel(operation =>
             {
-                // 취소 시 복원
                 action.ApplyBindingOverride(bindingIndex, previousOverride);
-
-                Debug.Log($"리바인딩 취소: {binding.name} → {previousOverride}");
 
                 action.Enable();
                 SaveBindings();
@@ -126,17 +160,14 @@ public class InputManager : Singleton<InputManager>
                     if (controlName == "escape")
                     {
                         action.ApplyBindingOverride(bindingIndex, previousOverride);
-                        Debug.Log($"ESC 입력 → '{binding.name}' 복원됨.");
                     }
                     else if (!IsBindingConflict(action, bindingIndex, newPath))
                     {
                         action.ApplyBindingOverride(bindingIndex, newPath);
-                        Debug.Log($"바인딩 변경: {binding.name} → {newPath}");
                     }
                     else
                     {
                         action.ApplyBindingOverride(bindingIndex, previousOverride);
-                        Debug.Log("동일한 키가 있음.");
                     }
 
                     SaveBindings();
@@ -146,9 +177,6 @@ public class InputManager : Singleton<InputManager>
                 operation.Dispose();
                 onComplete?.Invoke();
             });
-
-        Debug.Log($"리바인딩 시작: {action.name} ({binding.name})");
-
         currentRebindOperation.Start();
     }
 
