@@ -18,7 +18,7 @@ public class TitleUI : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject namePanel;
-    //[SerializeField] private GameObject optionPanel;
+    [SerializeField] private GameObject optionPanel;
 
     [Header("Name Panel")]
     [SerializeField] private TMP_InputField nameInput;
@@ -32,14 +32,14 @@ public class TitleUI : MonoBehaviour
     {
         newGameButton.onClick.AddListener(OnClickNewGame);
         loadGameButton.onClick.AddListener(OnClickLoad);
-        //OptionButton.onClick.AddListener(OnClickOption);
+        OptionButton.onClick.AddListener(OnClickOption);
         quitButton.onClick.AddListener(OnClickQuit);
 
         confirmNameButton.onClick.AddListener(OnConfirmName);
         cancelNameButton.onClick.AddListener(OnClickCancelName);
 
         ShowNamePanel(false);
-        //ShowOptionPanel(false);
+        ShowOptionPanel(false);
     }
 
     void ShowNamePanel(bool show)
@@ -55,26 +55,26 @@ public class TitleUI : MonoBehaviour
         }
     }
 
-    //void ShowOptionPanel(bool show)
-    //{
-    //    mainPanel.SetActive(!show);
-    //    optionPanel.SetActive(show);
-    //}
+    void ShowOptionPanel(bool show)
+    {
+        mainPanel.SetActive(!show);
+        optionPanel.SetActive(show);
+    }
 
     void OnClickNewGame()
     {
         ShowNamePanel(true);
     }
 
-    //void OnClickOption()
-    //{
-    //    ShowOptionPanel(true);
-    //}
+    void OnClickOption()
+    {
+        ShowOptionPanel(true);
+    }
 
-    //public void OnClickCloseOption()
-    //{
-    //    ShowOptionPanel(false);
-    //}
+    public void OnClickCloseOption()
+    {
+        ShowOptionPanel(false);
+    }
 
     void OnClickCancelName()
     {
@@ -87,7 +87,7 @@ public class TitleUI : MonoBehaviour
 
         if (string.IsNullOrEmpty(nameStr))
         {
-            Debug.LogWarning("ÀÌ¸§ÀÔ·Â");
+            Debug.LogWarning("ï¿½Ì¸ï¿½ï¿½Ô·ï¿½");
             return;
         }
 

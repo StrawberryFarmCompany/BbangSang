@@ -4,9 +4,9 @@ using UnityEngine;
 public enum GameState
 {
     Title,
-    PreGame, // �� ����� �ð�
-    InGame, // �� �Ĵ� �ð�
-    PostGame // ���� �ð�
+    PreGame, 
+    InGame, 
+    PostGame 
 }
 
 public class GameManager : Singleton<GameManager>
@@ -14,10 +14,10 @@ public class GameManager : Singleton<GameManager>
     public GameState CurGameState { get; set; } = GameState.Title;
 
     public float curInGameTime;
-    public float maxInGameTime = 300f; // 5��
+    public float maxInGameTime = 300f; 
 
-    public bool IsNewGame { get; set; } = false;  //�����ϱ� �������� �Ǵ�
-    public string PendingNewPlayerName { get; set; } = null;  //�Է��� �̸�
+    public bool IsNewGame { get; set; } = false;  
+    public string PendingNewPlayerName { get; set; } = null;  
 
 
     public Player player;
