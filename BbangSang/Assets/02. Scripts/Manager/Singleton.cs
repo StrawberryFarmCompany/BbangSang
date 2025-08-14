@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,7 +18,15 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 if(_instance == null)
                 {
                     GameObject go = new GameObject();
-                    _instance = go.AddComponent<T>();
+                    try
+                    {
+                        _instance = go.AddComponent<T>();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
+                    
                     go.name = $"[{typeof(T)}]";
                     if(!Application.isBatchMode)
                     {

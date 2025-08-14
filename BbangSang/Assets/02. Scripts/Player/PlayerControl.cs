@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,11 +22,19 @@ public class PlayerControl : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
     }
-   
+
+    private void Start()
+    {
+        if (InputManager.Instance.runtimeActions != null)
+        {
+            GetComponent<PlayerInput>().actions = InputManager.Instance.runtimeActions;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        // Debug.Log($"º¸´Â ¹æÇâ : {LookDirection}");
+        // Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : {LookDirection}");
     }
 
     private void FixedUpdate()
