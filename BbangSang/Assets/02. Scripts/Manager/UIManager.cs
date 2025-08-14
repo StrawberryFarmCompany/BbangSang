@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,11 @@ public class UIManager : MonoBehaviour
         preGameUi.Init(this);
         inGameUi.Init(this);
         postGameUi.Init(this);
+    }
+
+    private void Start()
+    {
+        ShowUI(GameManager.Instance.CurGameState);
     }
 
 
