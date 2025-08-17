@@ -94,6 +94,7 @@ public class TitleUI : MonoBehaviour
         GameManager.Instance.IsNewGame = true;
         GameManager.Instance.PendingNewPlayerName = nameStr;
 
+        Debug.Log($"[TITLE] NewGame start: GMid={GameManager.Instance.GetInstanceID()}, IsNewGame={GameManager.Instance.IsNewGame}, Pending='{GameManager.Instance.PendingNewPlayerName}'");
         SceneManager.LoadScene(nextSceneName);
     }
 
@@ -103,6 +104,7 @@ public class TitleUI : MonoBehaviour
         {
             GameManager.Instance.IsNewGame = false;
             GameManager.Instance.PendingNewPlayerName = null;
+            Debug.Log($"[TITLE] LoadGame start: GMid={GameManager.Instance.GetInstanceID()}, IsNewGame={GameManager.Instance.IsNewGame}, Pending='{GameManager.Instance.PendingNewPlayerName}'");
             SceneManager.LoadScene(nextSceneName);
         }
         else
