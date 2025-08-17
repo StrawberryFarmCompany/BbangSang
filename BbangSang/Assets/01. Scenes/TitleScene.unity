@@ -798,7 +798,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curInGameTime: 0
   maxInGameTime: 300
-  player: {fileID: 0}
 --- !u!4 &683320173
 Transform:
   m_ObjectHideFlags: 0
