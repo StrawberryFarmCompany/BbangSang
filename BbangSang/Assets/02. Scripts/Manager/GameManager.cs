@@ -12,6 +12,17 @@ public enum GameState
 
 public class GameManager : Singleton<GameManager>
 {
+    private void Awake()
+    {
+        if (GameManager.Instance != null && GameManager.Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     public GameState CurGameState { get; set; } = GameState.Title;
 
     public float curInGameTime;
@@ -20,8 +31,6 @@ public class GameManager : Singleton<GameManager>
     public bool IsNewGame { get; set; } = false;  
     public string PendingNewPlayerName { get; set; } = null;  
 
-
-    public Player player;
     public Player Player {get; set;}
     
 

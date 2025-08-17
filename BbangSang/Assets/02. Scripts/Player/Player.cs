@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.Player = this;
         control = GetComponent<PlayerControl>();
+        Debug.Log($"[PLAYER] Awake id={GetInstanceID()}, set to GMid={GameManager.Instance?.GetInstanceID()}");
     }
 
     public long Money
