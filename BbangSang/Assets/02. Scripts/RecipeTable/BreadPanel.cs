@@ -10,7 +10,7 @@ public class BreadPanel : MonoBehaviour
     public Text descText;
     public Button cancelButton;
     public Button selectButton;
-    public GameObject recipeInfoPanel;
+    private GameObject recipeInfoPanel;
 
     public void Start()
     {
