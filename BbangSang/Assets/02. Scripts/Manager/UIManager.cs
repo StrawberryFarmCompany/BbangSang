@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.CurGameState = GameState.PreGame;
         ShowUI(GameManager.Instance.CurGameState);
     }
 
