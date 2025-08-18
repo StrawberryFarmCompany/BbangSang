@@ -28,6 +28,7 @@ public class GameManager : Singleton<GameManager>
     public float curInGameTime;
     public float maxInGameTime = 300f; 
 
+    // TODO : 나중에 며칠 지났는지도 알아내야함
     public bool IsNewGame { get; set; } = false;  
     public string PendingNewPlayerName { get; set; } = null;  
 
@@ -43,7 +44,6 @@ public class GameManager : Singleton<GameManager>
             {
                 curInGameTime = 0f;
                 CurGameState = GameState.PostGame;
-                Debug.Log("�Ϸ� ��");
             }
         }
     }
@@ -57,7 +57,6 @@ public class GameManager : Singleton<GameManager>
             case GameState.PreGame:
                 return GameState.InGame;
             case GameState.InGame:
-                // ���� ������ �� �ð� �ʱ�ȭ
                 curInGameTime = 0f;
                 return GameState.PostGame;
             case GameState.PostGame:

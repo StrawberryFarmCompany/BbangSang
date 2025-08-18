@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    //ÇÃ·¹ÀÌ¾î µ· Â÷°¨ ÇÔ¼ö
+    //í”Œë ˆì´ì–´ ëˆ ì°¨ê° í•¨ìˆ˜
     public bool TrySpendMoney(long amount)
     {
         if (playerData == null) return false;
@@ -36,11 +36,11 @@ public class Player : MonoBehaviour
         if (playerData.money < amount) return false;
 
         playerData.money -= amount;
-        Debug.Log($"[MONEY] Spend {amount:N0} ¡æ Now {playerData.money:N0}");    //µ· »ç¿ë µğ¹ö±× ·Î±×
+        Debug.Log($"[MONEY] Spend {amount:N0} â†’ Now {playerData.money:N0}");    //ëˆ ì‚¬ìš© ë””ë²„ê·¸ ë¡œê·¸
         return true;
     }
 
-    //ÇÃ·¹ÀÌ¾î µ· Ãß°¡ ÇÔ¼ö
+    //í”Œë ˆì´ì–´ ëˆ ì¶”ê°€ í•¨ìˆ˜
     public void AddMoney(long amount)
     {
         if (playerData == null) return;
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         if (amount < 0)  return;
 
         playerData.money += amount;
-        Debug.Log($"[MONEY] Add {amount:N0} ¡æ Now {playerData.money:N0}");  //µ· Ãß°¡ µğ¹ö±× ·Î±×
+        Debug.Log($"[MONEY] Add {amount:N0} â†’ Now {playerData.money:N0}");  //ëˆ ì¶”ê°€ ë””ë²„ê·¸ ë¡œê·¸
     }
     public void Save()
     {
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Player data file not found. Creating new player data.");
             CreateData();
-            Debug.Log($"[LOAD¡æNEW] Money: {playerData.money:N0}");  //ºÒ·¯¿À±â µ· È®ÀÎ µğ¹ö±× ·Î±×
+            Debug.Log($"[LOADâ†’NEW] Money: {playerData.money:N0}");  //ë¶ˆëŸ¬ì˜¤ê¸° ëˆ í™•ì¸ ë””ë²„ê·¸ ë¡œê·¸
             return;
         }
         catch (System.Exception e)
@@ -81,12 +81,12 @@ public class Player : MonoBehaviour
             Debug.LogError("There's No Player Data");
             Debug.Log("Creating New Player Data");
             CreateData();
-            Debug.Log($"[LOAD¡æNEW] Money: {playerData.money:N0}");  //ºÒ·¯¿À±â µ· È®ÀÎ µğ¹ö±× ·Î±×
+            Debug.Log($"[LOADâ†’NEW] Money: {playerData.money:N0}");  //ë¶ˆëŸ¬ì˜¤ê¸° ëˆ í™•ì¸ ë””ë²„ê·¸ ë¡œê·¸
         }
         else
         {
             playerData = JsonUtility.FromJson<PlayerData>(loadData);
-            Debug.Log($"[LOAD] Money: {playerData.money:N0}");      //ºÒ·¯¿À±â µ· È®ÀÎ µğ¹ö±× ·Î±×
+            Debug.Log($"[LOAD] Money: {playerData.money:N0}");      //ë¶ˆëŸ¬ì˜¤ê¸° ëˆ í™•ì¸ ë””ë²„ê·¸ ë¡œê·¸
         }
     }
 
@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
             wearedUniformId = null,
             employees = new List<int>(),
             money = 0,
-            debt = 300000000 // ºú 3¾ï
+            debt = 300000000 // ë¹š 3ì–µ
         };
     }
 
