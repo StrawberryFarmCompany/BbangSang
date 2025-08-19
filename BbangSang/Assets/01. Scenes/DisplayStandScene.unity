@@ -1021,6 +1021,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6934304326378302369, guid: 058f22e65fa40924595e56afb9cb83a0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d47b01d5a82c0e41801f2052019ef64, type: 3}
     - target: {fileID: 8768101853672606825, guid: 058f22e65fa40924595e56afb9cb83a0, type: 3}
       propertyPath: m_Name
       value: DisplayStand
