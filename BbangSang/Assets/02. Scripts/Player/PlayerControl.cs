@@ -80,4 +80,12 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
+
+    void OnEscape(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            UIManager.Instance.ToggleEscape();
+        }
+    }
 }

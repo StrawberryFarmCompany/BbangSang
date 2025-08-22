@@ -2233,36 +2233,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1492320462}
     m_Modifications:
     - target: {fileID: 120763562579131921, guid: 610359e068873e84e8e634153041e00f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 120763562579131921, guid: 610359e068873e84e8e634153041e00f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 120763562579131921, guid: 610359e068873e84e8e634153041e00f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1492320463}
-    - target: {fileID: 120763562579131921, guid: 610359e068873e84e8e634153041e00f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickCloseOption
-      objectReference: {fileID: 0}
-    - target: {fileID: 120763562579131921, guid: 610359e068873e84e8e634153041e00f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TitleUI, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 120763562579131921, guid: 610359e068873e84e8e634153041e00f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 2413663636099510924, guid: 610359e068873e84e8e634153041e00f, type: 3}
       propertyPath: m_Name
       value: OptionPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 2413663636099510924, guid: 610359e068873e84e8e634153041e00f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7533235437065581410, guid: 610359e068873e84e8e634153041e00f, type: 3}
       propertyPath: m_Pivot.x
