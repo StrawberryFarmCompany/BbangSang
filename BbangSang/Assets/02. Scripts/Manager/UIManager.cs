@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -40,5 +41,10 @@ public class UIManager : Singleton<UIManager>
         {
             Time.timeScale = 1f;
         }
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("TitleScene");
     }
 }
