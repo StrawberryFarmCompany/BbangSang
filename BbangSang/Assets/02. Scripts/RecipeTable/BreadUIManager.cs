@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class BreadUIManager : MonoBehaviour
 {
@@ -35,6 +34,8 @@ public class BreadUIManager : MonoBehaviour
         Bread selectedBread = breadList.Recipes.Find(b => b.ID == id);
         if (selectedBread != null)
         {
+            selectedBread.Icon = Resources.Load<Sprite>($"Art/{selectedBread.Name}"); // 아이콘 로드
+
             GameObject panel = Instantiate(breadPanelPrefab, panelParent);
             panel.GetComponent<BreadPanel>().SetBreadInfo(selectedBread);
         }

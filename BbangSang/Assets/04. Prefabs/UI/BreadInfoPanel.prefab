@@ -960,12 +960,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0eb049be4c56c45a8c3ad7c388b961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breadImage: {fileID: 6986817458885550956}
   nameText: {fileID: 7041565558967430543}
   priceText: {fileID: 2740222869598081665}
   descText: {fileID: 7810734836590040168}
   cancelButton: {fileID: 7829793523368699846}
   selectButton: {fileID: 8751636958624957019}
-  recipeInfoPanel: {fileID: 0}
 --- !u!1 &5473201375818381383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1162,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2895250992331153449}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3335487977927075996}
+        m_TargetAssemblyTypeName: BreadPanel, Assembly-CSharp
+        m_MethodName: SelectButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6707240918724453431
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class BreadPanel : MonoBehaviour
 {
+    public Image breadImage;
     public Text nameText;
     public Text priceText;
     public Text descText;
     public Button cancelButton;
     public Button selectButton;
     private GameObject recipeInfoPanel;
+
+    private Bread currentBread;
 
     public void Start()
     {
@@ -30,11 +33,15 @@ public class BreadPanel : MonoBehaviour
         }
 
         cancelButton.onClick.AddListener(ExitButton);
+        selectButton.onClick.AddListener(SelectButton);
     }
 
 
     public void SetBreadInfo(Bread bread)
     {
+        currentBread = bread; // ÀúÀå
+
+        breadImage.sprite = bread.Icon;
         nameText.text = bread.Name;
         priceText.text = bread.BreadPrice.ToString() + "¿ø";
         descText.text = bread.Description;
@@ -43,6 +50,20 @@ public class BreadPanel : MonoBehaviour
 
     public void ExitButton()
     {
+        gameObject.SetActive(false);
+        recipeInfoPanel.SetActive(false);
+    }
+
+    public void SelectButton()
+    {
+        if (currentBread.Icon != null)
+        {
+            SelectedBread selector = FindObjectOfType<SelectedBread>();
+            if (selector != null)
+            {
+                selector.ShowBreadIcon(currentBread.Icon);
+            }
+        }
         gameObject.SetActive(false);
         recipeInfoPanel.SetActive(false);
     }
