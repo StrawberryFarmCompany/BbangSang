@@ -50,7 +50,6 @@ public class BreadPanel : MonoBehaviour
 
     public void ExitButton()
     {
-        gameObject.SetActive(false);
         recipeInfoPanel.SetActive(false);
     }
 
@@ -64,7 +63,6 @@ public class BreadPanel : MonoBehaviour
                 selector.ShowBreadIcon(currentBread.Icon);
             }
         }
-        gameObject.SetActive(false);
         recipeInfoPanel.SetActive(false);
     }
 }
