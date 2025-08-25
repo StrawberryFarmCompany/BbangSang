@@ -18,7 +18,8 @@ public class Oven : BaseInteractable
 
     public override void Interact()
     {
-        Debug.Log("¿ÀºìÀ» Åµ´Ï´Ù.");
+        if (GameManager.Instance.CurGameState != GameState.PreGame) return;
+        Debug.Log("ì˜¤ë¸ì„ í‚µë‹ˆë‹¤.");
         ovenUI.SetActive(true);
     }
 

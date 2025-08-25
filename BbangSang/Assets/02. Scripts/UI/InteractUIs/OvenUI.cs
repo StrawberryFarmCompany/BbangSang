@@ -44,7 +44,7 @@ public class OvenUI : MonoBehaviour
     {
         isActive = false;
         ovenImage.sprite = ovenOffSprite;
-        activeButtonText.text = "ªß ±¡±‚";
+        activeButtonText.text = "Îπµ ÍµΩÍ∏∞";
         oven.OvenImageSetting(ovenOffSprite);
     }
 
@@ -52,7 +52,7 @@ public class OvenUI : MonoBehaviour
     {
         isActive = true;
         ovenImage.sprite = ovenOnSprite;
-        activeButtonText.text = "ø¿∫Ï ≤Ù±‚";
+        activeButtonText.text = "Ïò§Î∏ê ÎÅÑÍ∏∞";
         oven.OvenImageSetting(ovenOnSprite);
     }
 }
