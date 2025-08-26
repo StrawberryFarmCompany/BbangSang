@@ -26,7 +26,7 @@
             "Name": "다크 초코 머핀",
             "RecipePrice": 300000,
             "BreadPrice": 43,
-            "Description": "초코칩이 콕콕 박혀있는 진한 다크 초콜릿 머핀입니다."
+            "Description": "초코칩이 콕콕 박혀있는 진한 다크 초콜릿 머핀 입니다."
         },
         {
             "ID": 5,
@@ -55,6 +55,20 @@
             "RecipePrice": 1420000,
             "BreadPrice": 93,
             "Description": "알싸한 마늘향과 버터향이 조화롭게 섞여있는 단단한 바게트 입니다."
+        },
+        {
+            "ID": 9,
+            "Name": "미정",
+            "RecipePrice": 1800000,
+            "BreadPrice": 102,
+            "Description": "미정"
+        },
+        {
+            "ID": 10,
+            "Name": "킬바사 소세지 핫도그",
+            "RecipePrice": 2000000,
+            "BreadPrice": 115,
+            "Description": "매콤한 칠리소스와 뽀드득 거리는 소세지가 인상적인 미국식 핫도그 입니다."
         }
     ]
 }
