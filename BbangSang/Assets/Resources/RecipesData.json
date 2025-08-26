@@ -16,10 +16,45 @@
         },
         {
             "ID": 3,
-            "Name": "크림 빵",
+            "Name": "슈크림 빵",
             "RecipePrice": 100000,
             "BreadPrice": 30,
             "Description": "달콤한 크림이 가득 들어간 크림빵 입니다."
+        },
+        {
+            "ID": 4,
+            "Name": "다크 초코 머핀",
+            "RecipePrice": 300000,
+            "BreadPrice": 43,
+            "Description": "초코칩이 콕콕 박혀있는 진한 다크 초콜릿 머핀입니다."
+        },
+        {
+            "ID": 5,
+            "Name": "플레인 베이글",
+            "RecipePrice": 500000,
+            "BreadPrice": 50,
+            "Description": "풍미 가득한 쫄깃한 베이글 입니다."
+        },
+        {
+            "ID": 6,
+            "Name": "레몬 머랭 타르트",
+            "RecipePrice": 780000,
+            "BreadPrice": 65,
+            "Description": "상큼한 레몬과 달콤한 머랭이 잘 어울리는 타르트 입니다."
+        },
+        {
+            "ID": 7,
+            "Name": "황 치즈 쿠키 (5ea)",
+            "RecipePrice": 1000000,
+            "BreadPrice": 81,
+            "Description": "치즈의 풍미를 가득 머금은 단백질 쿠키 입니다."
+        },
+        {
+            "ID": 8,
+            "Name": "마늘 바게트",
+            "RecipePrice": 1420000,
+            "BreadPrice": 93,
+            "Description": "알싸한 마늘향과 버터향이 조화롭게 섞여있는 단단한 바게트 입니다."
         }
     ]
 }
