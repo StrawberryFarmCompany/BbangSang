@@ -63,6 +63,16 @@ public class BreadPanel : MonoBehaviour
                 selector.ShowBreadIcon(currentBread.Icon);
             }
         }
+
+        if (BreadManager.Instance != null && currentBread != null)
+        {
+            BreadManager.Instance.SelectRecipe(currentBread.ID);
+            Debug.Log($"[RECIPE] º±≈√: ID {currentBread.ID} ({currentBread.Name})");
+        }
+
+        var listUI = FindObjectOfType<DoughListUI>();
+        if (listUI != null) listUI.Refresh();
+
         recipeInfoPanel.SetActive(false);
     }
 }

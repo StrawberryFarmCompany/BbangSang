@@ -1,0 +1,123 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BreadManager : MonoBehaviour
+{
+    public static BreadManager Instance { get; private set; }
+
+    public int CurrentDayIndex { get; private set; } = -1;
+
+    public int? CurrentRecipeID { get; private set; } = null;
+    public bool HasSelection => CurrentRecipeID.HasValue;
+
+    private readonly Dictionary<int, int> dough = new();
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
+    public void InitDay(int dayIndex)
+    {
+        if (CurrentDayIndex == dayIndex) return;
+        CurrentDayIndex = dayIndex;
+        dough.Clear();
+        CurrentRecipeID = null;
+    }
+
+    public void NextDay()
+    {
+        CurrentDayIndex += 1;
+        dough.Clear();
+        CurrentRecipeID = null;
+    }
+
+    public void SelectRecipe(int recipeID) => CurrentRecipeID = recipeID;
+    public void ClearRecipeSelection() => CurrentRecipeID = null;
+
+    public int GetDough(int recipeID) => dough.TryGetValue(recipeID, out var c) ? c : 0;
+
+    public int AddDough(int recipeID, int amount)
+    {
+        if (amount <= 0)
+        {
+            return GetDough(recipeID);
+        }
+
+        int newCount = GetDough(recipeID) + amount;
+        dough[recipeID] = newCount;
+        return newCount;
+    }
+
+    public bool UseDough(int recipeID, int amount)
+    {
+        if (amount <= 0)
+        {
+            return false;
+        }
+
+        int cur = GetDough(recipeID);
+
+        if (cur < amount)
+        {
+            return false;
+        }
+
+        cur -= amount;
+
+        if (cur == 0)
+        {
+            dough.Remove(recipeID);
+        }
+        else
+        {
+            dough[recipeID] = cur;
+        }
+
+        return true;
+    }
+
+    public bool TryAddDoughSelected(int amount, out int newCount)
+    {
+        newCount = 0;
+        if (!HasSelection)
+        {
+            return false;
+        }
+
+        newCount = AddDough(CurrentRecipeID.Value, amount);
+
+        return true;
+    }
+
+    public bool TryUseDoughSelected(int amount)
+    {
+        if (!HasSelection)
+        {
+            return false;
+        }
+
+        return UseDough(CurrentRecipeID!.Value, amount);
+    }
+
+    public void GetAllDough(List<(int recipeId, int count)> buffer)
+    {
+        buffer.Clear();
+        foreach (var kv in dough)
+            buffer.Add((kv.Key, kv.Value));
+    }
+}
