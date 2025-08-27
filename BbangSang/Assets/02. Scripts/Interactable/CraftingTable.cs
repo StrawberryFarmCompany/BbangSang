@@ -8,19 +8,19 @@ public class CraftingTable : BaseInteractable
     public GameObject craftingUI;
     private bool isUIOpen = false;
 
-    [Header("½Ã°£ / ·¹º§")]
+    [Header("ì‹œê°„ / ë ˆë²¨")]
     public float maxTimeBase = 120f;            // m
     public float decreasePerLevel = 5f;         // i
     public int level = 1;
     public int maxLevel = 10;
-    public float curTime;                       //³²Àº ½Ã°£
+    public float curTime;                       //ë‚¨ì€ ì‹œê°„
 
     public enum CraftStartMode { Manual, AutoOnAwake, AutoOnInteract }
 
-    [Header("½ÃÀÛ ¹æ½Ä")]
+    [Header("ì‹œì‘ ë°©ì‹")]
     [SerializeField] private CraftStartMode startMode = CraftStartMode.Manual;
 
-    [Header("ÀúÀå ¿É¼Ç")]
+    [Header("ì €ì¥ ì˜µì…˜")]
     [SerializeField] private bool savePlayerOnUpgrade = true;
     [SerializeField] private bool justCurrentToNewMax = false;
 
@@ -72,15 +72,17 @@ public class CraftingTable : BaseInteractable
         if (force || _lastLoggedTime < 0f || Mathf.Abs(curTime - _lastLoggedTime) >= 0.1f)
         {
             _lastLoggedTime = curTime;
-            Debug.Log($"[Level {level}] ³²Àº ½Ã°£ : {curTime:0.00}ÃÊ");
+            Debug.Log($"[Level {level}] ë‚¨ì€ ì‹œê°„ : {curTime:0.00}ì´ˆ");
         }
     }
 
     public override void Interact()
     {
+        if (GameManager.Instance.CurGameState != GameState.PreGame) return;
+        
         craftingUI.SetActive(true);
         isUIOpen = true;
-        Debug.Log("Á¦ÀÛÅ×ÀÌºí ¿­¸²");
+        Debug.Log("ì œì‘í…Œì´ë¸” ì—´ë¦¼");
 
         if (startMode == CraftStartMode.AutoOnInteract && !isCrafting)
             StartCraft(true);
@@ -90,34 +92,34 @@ public class CraftingTable : BaseInteractable
     {
         craftingUI.SetActive(false);
         isUIOpen = false;
-        Debug.Log("Á¦ÀÛÅ×ÀÌºí ´İÈû");
+        Debug.Log("ì œì‘í…Œì´ë¸” ë‹«í˜");
     }
 
     public void StartCraft(bool resetTime)
     {
-        if (isCrafting && !craftComplete) return; // ÀÌ¹Ì ÁøÇà ÁßÀÌ¸é ¹«½Ã
+        if (isCrafting && !craftComplete) return; // ì´ë¯¸ ì§„í–‰ ì¤‘ì´ë©´ ë¬´ì‹œ
         if (resetTime) curTime = GetMaxTime();
         isCrafting = true;
         craftComplete = false;
         _lastLoggedTime = -1f;
-        Debug.Log($"[CRAFT] Á¦ÀÛ ½ÃÀÛ: {curTime:0}s");
+        Debug.Log($"[CRAFT] ì œì‘ ì‹œì‘: {curTime:0}s");
         RefreshTimeLog(true);
     }
 
     public void StopCraft()
     {
         isCrafting = false;
-        Debug.Log("[CRAFT] Á¦ÀÛ ÁßÁö");
+        Debug.Log("[CRAFT] ì œì‘ ì¤‘ì§€");
     }
 
     private void CompleteCraft()
     {
         craftComplete = true;
         isCrafting = false;
-        Debug.Log("[CRAFT] Á¦ÀÛ ¿Ï·á");
+        Debug.Log("[CRAFT] ì œì‘ ì™„ë£Œ");
     }
 
-    //½Ã°£ °¨¼Ò ¹öÆ°
+    //ì‹œê°„ ê°ì†Œ ë²„íŠ¼
     public void DecreaseTime()
     {
         if (!isCrafting || craftComplete) StartCraft(true);
@@ -133,24 +135,24 @@ public class CraftingTable : BaseInteractable
             }
             else
             {
-                Debug.Log($"[BTN] -0.2s ¡æ ³²Àº {curTime:0.00}ÃÊ");
+                Debug.Log($"[BTN] -0.2s â†’ ë‚¨ì€ {curTime:0.00}ì´ˆ");
             }
         }
     }
 
-    //¾÷±×·¹ÀÌµå ¹öÆ°
+    //ì—…ê·¸ë ˆì´ë“œ ë²„íŠ¼
     public void UpgradeLevel()
     {
         if (level >= maxLevel)
         {
-            Debug.Log("ÃÖ´ë ·¹º§ÀÔ´Ï´Ù");
+            Debug.Log("ìµœëŒ€ ë ˆë²¨ì…ë‹ˆë‹¤");
             return;
 
         }
 
         if (player == null || player.playerData == null)
         {
-            Debug.LogWarning("ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("í”Œë ˆì´ì–´ ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -160,7 +162,7 @@ public class CraftingTable : BaseInteractable
 
         if (!player.TrySpendMoney(cost))
         {
-            Debug.Log($"¾÷±×·¹ÀÌµå ½ÇÆĞ: ÇÊ¿ä {cost:N0}¿ø, º¸À¯ {before:N0}¿ø");
+            Debug.Log($"ì—…ê·¸ë ˆì´ë“œ ì‹¤íŒ¨: í•„ìš” {cost:N0}ì›, ë³´ìœ  {before:N0}ì›");
             return;
         }
 
@@ -185,7 +187,7 @@ public class CraftingTable : BaseInteractable
 
         if (savePlayerOnUpgrade) player.Save();
 
-        Debug.Log($"[¾÷±×·¹ÀÌµå ¼º°ø] -{cost:N0}¿ø / ÀÜ¾× {player.Money:N0}¿ø\nÇöÀç ·¹º§: {level}, ÃÖ´ë ½Ã°£: {newMax:0.00}ÃÊ");
+        Debug.Log($"[ì—…ê·¸ë ˆì´ë“œ ì„±ê³µ] -{cost:N0}ì› / ì”ì•¡ {player.Money:N0}ì›\ní˜„ì¬ ë ˆë²¨: {level}, ìµœëŒ€ ì‹œê°„: {newMax:0.00}ì´ˆ");
     }
 
     private long GetCostForLevel(int levelN)

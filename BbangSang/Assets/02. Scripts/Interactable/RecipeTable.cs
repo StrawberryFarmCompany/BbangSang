@@ -7,10 +7,12 @@ public class RecipeTable : BaseInteractable
     [SerializeField] private GameObject recipeUI;
     public override void Interact()
     {
+        if (GameManager.Instance.CurGameState != GameState.PreGame) return;
+        
         if (recipeUI != null)
         {
             recipeUI.SetActive(true);
-            Debug.Log("·¹½ÃÇÇ Å×ÀÌºí º¸±â");
+            Debug.Log("ë ˆì‹œí”¼ í…Œì´ë¸” ë³´ê¸°");
         }
     }
 }
