@@ -34,6 +34,9 @@ public class CraftingTable : BaseInteractable
     private bool craftComplete = false;
     private float _lastLoggedTime = -1f;
 
+    [Header("���� ���")]
+    [SerializeField] private int producedPerBatch = 20;
+
     private void Awake()
     {
         ResetTime();
@@ -95,14 +98,25 @@ public class CraftingTable : BaseInteractable
         Debug.Log("제작테이블 닫힘");
     }
 
+    private int craftingRecipeID = 0;
+
     public void StartCraft(bool resetTime)
     {
-        if (isCrafting && !craftComplete) return; // 이미 진행 중이면 무시
+        if (isCrafting && !craftComplete) return;
+
+        if (!BreadManager.Instance.HasSelection)
+        {
+            Debug.LogWarning("������ ���� �� ��, ���� �Ұ�");
+            return;
+        }
+        craftingRecipeID = BreadManager.Instance.CurrentRecipeID.Value;
+
         if (resetTime) curTime = GetMaxTime();
         isCrafting = true;
         craftComplete = false;
         _lastLoggedTime = -1f;
-        Debug.Log($"[CRAFT] 제작 시작: {curTime:0}s");
+
+        Debug.Log($"[CRAFT] 제작 시작: (id = {craftingRecipeID}) : {curTime:0}s");
         RefreshTimeLog(true);
     }
 
@@ -116,7 +130,26 @@ public class CraftingTable : BaseInteractable
     {
         craftComplete = true;
         isCrafting = false;
-        Debug.Log("[CRAFT] 제작 완료");
+
+        if (craftingRecipeID <= 0)
+        {
+            Debug.LogWarning("제작 중 레시피ID 없음");
+            return;
+        }
+
+        var bm = BreadManager.Instance;
+        if (bm == null)
+        {
+            return;
+        }
+
+        if (!bm.TryAddDoughSelected(producedPerBatch, out int newCount))
+        {
+            Debug.LogWarning("선택된 레시피 없음");
+            return;
+        }
+
+        Debug.Log($"[CRAFT] 제작 완료: ID={craftingRecipeID}, +{producedPerBatch} 현재 {newCount}개");
     }
 
     //시간 감소 버튼
@@ -126,7 +159,7 @@ public class CraftingTable : BaseInteractable
 
         if (!craftComplete)
         {
-            curTime = Mathf.Max(0f, curTime - 0.2f);
+            curTime = Mathf.Max(0f, curTime - 20f);    //클릭 시 시간 감소 조정 가능
             RefreshTimeLog(true);
 
             if (curTime <= 0f)

@@ -2,34 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreadManager : MonoBehaviour
+public class BreadManager : Singleton<BreadManager>
 {
-    public static BreadManager Instance { get; private set; }
-
     public int CurrentDayIndex { get; private set; } = -1;
 
     public int? CurrentRecipeID { get; private set; } = null;
     public bool HasSelection => CurrentRecipeID.HasValue;
 
     private readonly Dictionary<int, int> dough = new();
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-            return;
-        }
-        Instance = this;
-    }
-
-    private void OnDestroy()
-    {
-        if (Instance == this)
-        {
-            Instance = null;
-        }
-    }
 
     public void InitDay(int dayIndex)
     {

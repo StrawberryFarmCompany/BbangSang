@@ -9,13 +9,13 @@ using UnityEngine.UI;
 
 public class DoughListUI : MonoBehaviour
 {
-    [Header("UI (µÑ Áß ÇÏ³ª¸¸ Ã¤¿öµµ µÊ)")]
+    [Header("UI (ë‘˜ ì¤‘ í•˜ë‚˜ë§Œ)")]
     [SerializeField] private Text uiText;
     [SerializeField] private TMP_Text tmpText;
 
-    [Header("Ç¥½Ã ¼³Á¤")]
+    [Header("í‘œì‹œ ì„¤ì •")]
     [SerializeField] private float refreshInterval = 0.2f;
-    [SerializeField] private string title = "¹İÁ×";
+    [SerializeField] private string title = "ë°˜ì£½";
 
     private WaitForSeconds wait;
     private readonly List<(int recipeId, int count)> _buffer = new();
@@ -29,7 +29,7 @@ public class DoughListUI : MonoBehaviour
 
         if (uiText == null && tmpText == null)
         {
-            Debug.LogWarning("[DoughListUI] Text ¶Ç´Â TMP_Text ¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
+            Debug.LogWarning("[DoughListUI] Text ë˜ëŠ” TMP_Text ì—°ê²° í•„ìš”");
             enabled = false;
             return;
         }
@@ -70,7 +70,7 @@ public class DoughListUI : MonoBehaviour
 
         if (_buffer.Count == 0)
         {
-            sb.AppendLine("  (¾øÀ½)");
+            sb.AppendLine("  (ì—†ìŒ)");
         }
         else
         {
