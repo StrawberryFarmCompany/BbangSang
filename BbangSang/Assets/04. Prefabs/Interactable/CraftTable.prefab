@@ -149,3 +149,7 @@ MonoBehaviour:
   level: 1
   maxLevel: 10
   curTime: 0
+  startMode: 0
+  savePlayerOnUpgrade: 1
+  justCurrentToNewMax: 0
+  producedPerBatch: 20

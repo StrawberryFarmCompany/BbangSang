@@ -143,4 +143,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37b828fd75070845b8bdad4e510eb6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipeTablePanel: {fileID: 6324417940722999531, guid: 8b7dd4e1b4f867f49a442daaac29655c, type: 3}
+  recipeUI: {fileID: 0}
