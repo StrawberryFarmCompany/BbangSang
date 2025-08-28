@@ -11,12 +11,30 @@ public class BreadManager : Singleton<BreadManager>
 
     private readonly Dictionary<int, int> dough = new();
 
+    public static RecipeList recipeList;
+    
     public void InitDay(int dayIndex)
     {
         if (CurrentDayIndex == dayIndex) return;
         CurrentDayIndex = dayIndex;
         dough.Clear();
         CurrentRecipeID = null;
+    }
+    
+    void Start()
+    {
+        LoadRecipeData();
+    }
+    
+    public void LoadRecipeData()
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>("RecipesData");
+        if (jsonFile == null)
+        {
+            Debug.LogError("Error: 'RecipesData' 파일을 찾을 수 없습니다.");
+            return;
+        }
+        recipeList = JsonUtility.FromJson<RecipeList>(jsonFile.text);
     }
 
     public void NextDay()

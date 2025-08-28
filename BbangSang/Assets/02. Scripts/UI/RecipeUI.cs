@@ -13,27 +13,44 @@ public class RecipeUI : MonoBehaviour
 
     private void Start()
     {
-        //onClick¿¡ Ãß°¡
+        //onClickì— ì¶”ê°€
         whiteBread.onClick.AddListener(WhiteBreadButton);
         soboroBread.onClick.AddListener(SoboroBreadButton);
         exit.onClick.AddListener(ExitButton);
     }
 
-    // ½Ä»§ Á¤º¸
+    // ì‹ë¹µ ì •ë³´
     public void WhiteBreadButton()
     {
         recipeInfoPanel.SetActive(true);
     }
 
-    // ¼Òº¸·Î »§ Á¤º¸
+    // ì†Œë³´ë¡œ ë¹µ ì •ë³´
     public void SoboroBreadButton()
     {
         recipeInfoPanel.SetActive(true);
     }
 
-    // ÆĞ³Î ´İ±â
+    // íŒ¨ë„ ë‹«ê¸°
     public void ExitButton()
     {
         gameObject.SetActive(false);
+    }
+    
+    public void ShowBreadInfoByID(int id)
+    {
+        // ì¡°ê±´ì— ë§ëŠ” ë¹µ í•˜ë‚˜ ì°¾ê¸°
+        Recipe selectedBread = BreadManager.recipeList.Recipes.Find(b => b.ID == id);
+        if (selectedBread != null)
+        {
+            selectedBread.Icon = Resources.Load<Sprite>($"Art/{selectedBread.Name}"); // ì•„ì´ì½˜ ë¡œë“œ
+            
+            recipeInfoPanel.GetComponent<BreadPanel>().SetBreadInfo(selectedBread);
+            recipeInfoPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning($"'{id}' ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+        }
     }
 }

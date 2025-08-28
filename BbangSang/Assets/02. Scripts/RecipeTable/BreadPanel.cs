@@ -1,79 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BreadPanel : MonoBehaviour
 {
     public Image breadImage;
-    public Text nameText;
-    public Text priceText;
-    public Text descText;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI priceText;
+    public TextMeshProUGUI descText;
     public Button cancelButton;
     public Button selectButton;
-    private GameObject recipeInfoPanel;
 
-    private Bread currentBread;
+    private Recipe currentRecipe;
 
     public void Start()
     {
-        if (recipeInfoPanel == null)
-        {
-            // ∫Œ∏ ¡ﬂø° ¿Ã∏ß¿Ã RecipeInfoPanel¿Œ GameObject √£æ∆º≠ ¿⁄µø ¡ˆ¡§
-            Transform parent = transform;
-            while (parent != null)
-            {
-                if (parent.name == "RecipeInfoPanel")
-                {
-                    recipeInfoPanel = parent.gameObject;
-                    break;
-                }
-                parent = parent.parent;  // »Æ¿Œ«— ø¿∫Í¡ß∆Æ¿« ∫Œ∏∏¶ ∫Œ∏∑Œ ¥ŸΩ√ ¡ˆ¡§
-            }
-        }
-
         cancelButton.onClick.AddListener(ExitButton);
         selectButton.onClick.AddListener(SelectButton);
     }
 
 
-    public void SetBreadInfo(Bread bread)
+    public void SetBreadInfo(Recipe recipe)
     {
-        currentBread = bread; // ¿˙¿Â
+        currentRecipe = recipe; // Ï†ÄÏû•
 
-        breadImage.sprite = bread.Icon;
-        nameText.text = bread.Name;
-        priceText.text = bread.BreadPrice.ToString() + "ø¯";
-        descText.text = bread.Description;
+        breadImage.sprite = recipe.Icon;
+        nameText.text = recipe.Name;
+        priceText.text = recipe.BreadPrice.ToString() + "Ïõê";
+        descText.text = recipe.Description;
     }
 
 
     public void ExitButton()
     {
-        recipeInfoPanel.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void SelectButton()
     {
-        if (currentBread.Icon != null)
+        if (currentRecipe.Icon != null)
         {
             SelectedBread selector = FindObjectOfType<SelectedBread>();
             if (selector != null)
             {
-                selector.ShowBreadIcon(currentBread.Icon);
+                selector.ShowBreadIcon(currentRecipe.Icon);
             }
         }
 
-        if (BreadManager.Instance != null && currentBread != null)
+        if (BreadManager.Instance != null && currentRecipe != null)
         {
-            BreadManager.Instance.SelectRecipe(currentBread.ID);
-            Debug.Log($"[RECIPE] º±≈√: ID {currentBread.ID} ({currentBread.Name})");
+            BreadManager.Instance.SelectRecipe(currentRecipe.ID);
+            Debug.Log($"[RECIPE] ÏÑ†ÌÉù: ID {currentRecipe.ID} ({currentRecipe.Name})");
         }
 
         var listUI = FindObjectOfType<DoughListUI>();
         if (listUI != null) listUI.Refresh();
 
-        recipeInfoPanel.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
 
