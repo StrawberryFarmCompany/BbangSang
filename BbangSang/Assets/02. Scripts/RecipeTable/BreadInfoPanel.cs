@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BreadPanel : MonoBehaviour
+public class BreadInfoPanel : MonoBehaviour
 {
     public Image breadImage;
     public TextMeshProUGUI nameText;

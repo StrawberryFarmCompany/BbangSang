@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BreadManager : Singleton<BreadManager>
@@ -11,7 +12,7 @@ public class BreadManager : Singleton<BreadManager>
 
     private readonly Dictionary<int, int> dough = new();
 
-    public static RecipeList recipeList;
+    public RecipeList recipeList { get; private set; }
     
     public void InitDay(int dayIndex)
     {
@@ -20,11 +21,12 @@ public class BreadManager : Singleton<BreadManager>
         dough.Clear();
         CurrentRecipeID = null;
     }
-    
-    void Start()
+
+    private void Awake()
     {
         LoadRecipeData();
     }
+
     
     public void LoadRecipeData()
     {
