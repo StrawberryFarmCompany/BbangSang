@@ -17,11 +17,7 @@ public class Bread : MonoBehaviour
     public void SetBread(Recipe recipe)
     {
         currentRecipe = recipe;
-
-        if (currentRecipe.Icon == null)
-            currentRecipe.Icon = Resources.Load<Sprite>($"Art/{currentRecipe.Name}");
-
-        breadImage.sprite = currentRecipe.Icon;
+        breadImage.sprite = recipe.GetIcon();
     }
 
     public void OpenBreadInfoPanel()

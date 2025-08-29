@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,7 +24,7 @@ public class BreadInfoPanel : MonoBehaviour
     {
         currentRecipe = recipe; // 저장
 
-        breadImage.sprite = recipe.Icon;
+        breadImage.sprite = recipe.GetIcon();
         nameText.text = recipe.Name;
         priceText.text = recipe.BreadPrice.ToString() + "원";
         descText.text = recipe.Description;
@@ -45,7 +43,7 @@ public class BreadInfoPanel : MonoBehaviour
             SelectedBread selector = FindObjectOfType<SelectedBread>();
             if (selector != null)
             {
-                selector.ShowBreadIcon(currentRecipe.Icon);
+                selector.ShowBreadIcon(currentRecipe.GetIcon());
             }
         }
 

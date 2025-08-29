@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,21 +39,4 @@ public class RecipeUI : MonoBehaviour
             }
         }
     }
-
-    //public void ShowBreadInfoByID(int id)
-    //{
-    //    // 조건에 맞는 빵 하나 찾기
-    //    Recipe selectedBread = breadList.Recipes.Find(b => b.ID == id);
-    //    if (selectedBread != null)
-    //    {
-    //        selectedBread.Icon = Resources.Load<Sprite>($"Art/{selectedBread.Name}"); // 아이콘 로드
-
-    //        recipeInfoPanel.GetComponent<BreadInfoPanel>().SetBreadInfo(selectedBread);
-    //        recipeInfoPanel.SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning($"'{id}' 를 찾을 수 없습니다.");
-    //    }
-    //}
 }

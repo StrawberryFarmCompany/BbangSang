@@ -12,6 +12,13 @@ public class Recipe
     public string Description;
 
     [NonSerialized] public Sprite Icon;  // Sprite는 Unity 에셋이므로 JSON에 저장할 수 없음 그래서 NonSerialized 사용
+
+    public Sprite GetIcon()
+    {
+        if (Icon == null)
+            Icon = Resources.Load<Sprite>($"Art/{Name}");
+        return Icon;
+    }
 }
 
 [Serializable]
