@@ -39,6 +39,11 @@ public class BreadManager : Singleton<BreadManager>
         recipeList = JsonUtility.FromJson<RecipeList>(jsonFile.text);
     }
 
+    public Recipe GetRecipe(int id)
+    {
+        return recipeList.Recipes.Find(x => x.ID == id);
+    }
+
     public void NextDay()
     {
         CurrentDayIndex += 1;

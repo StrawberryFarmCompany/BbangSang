@@ -22,10 +22,10 @@ public class Bread : MonoBehaviour
 
     public void OpenBreadInfoPanel()
     {
-        // BreadInfoPanel ÀÚµ¿ ÇÒ´ç (ºñÈ°¼ºÈ­µÈ ¿ÀºêÁ§Æ®±îÁö Æ÷ÇÔÇØ¼­ Å½»ö)
+        // BreadInfoPanel ìë™ í• ë‹¹ (ë¹„í™œì„±í™”ëœ ì˜¤ë¸Œì íŠ¸ê¹Œì§€ í¬í•¨í•´ì„œ íƒìƒ‰)
         if (breadInfoPanel == null)
         {
-            BreadInfoPanel panel = FindObjectOfType<BreadInfoPanel>(true); // true ³Ö¾î¾ß ºñÈ°¼ºÈ­µÈ °Íµµ Ã£À½
+            BreadInfoPanel panel = FindObjectOfType<BreadInfoPanel>(true); // true ë„£ì–´ì•¼ ë¹„í™œì„±í™”ëœ ê²ƒë„ ì°¾ìŒ
             if (panel != null)
                 breadInfoPanel = panel.gameObject;
         }
@@ -42,7 +42,7 @@ public class Bread : MonoBehaviour
         }
         else
         {
-            Debug.LogError("BreadInfoPanelÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù. ¾À¿¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÏ¼¼¿ä!");
+            Debug.LogError("BreadInfoPanelì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ì”¬ì— ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸í•˜ì„¸ìš”!");
         }
     }
 }
