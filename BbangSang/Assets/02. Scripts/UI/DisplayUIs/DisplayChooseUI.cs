@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisplayStandUI : MonoBehaviour
+public class DisplayChooseUI : MonoBehaviour
 {
-    public GameObject displayStandUI;
+    public GameObject displayChooseUI;
     public Button exit;
+    public TextMeshProUGUI menuText;
 
     private void Start()
     {
