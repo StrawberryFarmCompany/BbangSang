@@ -4292,6 +4292,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1339511470}
+    - target: {fileID: 5262917895935142771, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+      propertyPath: craft
+      value: 
+      objectReference: {fileID: 1339511470}
     - target: {fileID: 6490360173454882158, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4306,6 +4310,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3080108903914499127, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
   m_PrefabInstance: {fileID: 1666533098}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1666533100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5262917895935142771, guid: 60e70ac80c38bfc4d8e484234decdc38, type: 3}
+  m_PrefabInstance: {fileID: 1666533098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317457588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c737967f00fea6a4a8c6e64aee132454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1681785576
 GameObject:
   m_ObjectHideFlags: 0
@@ -6122,6 +6137,10 @@ PrefabInstance:
       propertyPath: craftingUI
       value: 
       objectReference: {fileID: 317457588}
+    - target: {fileID: 7735170719643726314, guid: d87ab4093d8cd08469d16136be430d99, type: 3}
+      propertyPath: uiController
+      value: 
+      objectReference: {fileID: 1666533100}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
