@@ -409,7 +409,11 @@ PrefabInstance:
     - target: {fileID: 9061492008030571217, guid: 6315a1a9c8df6894998ce754abc6d7bc, type: 3}
       propertyPath: ovenUI
       value: 
-      objectReference: {fileID: 2030589071}
+      objectReference: {fileID: 1565464699}
+    - target: {fileID: 9061492008030571217, guid: 6315a1a9c8df6894998ce754abc6d7bc, type: 3}
+      propertyPath: selectDoughUI
+      value: 
+      objectReference: {fileID: 1442615426}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2514,11 +2518,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
---- !u!224 &913399968 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6556299533525612222, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
-  m_PrefabInstance: {fileID: 913399967}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &919293838 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1353617889850836282, guid: 20a81f28038ba48418468ea86ccb6351, type: 3}
@@ -3204,6 +3203,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410751321}
   m_CullTransparentMesh: 1
+--- !u!1 &1442615426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1960439059247169527, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
+  m_PrefabInstance: {fileID: 913399967}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1482521928 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6117630130251634950, guid: 2a447e062496def468a90cd50dbd5b31, type: 3}
@@ -3628,6 +3632,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560956809}
   m_CullTransparentMesh: 1
+--- !u!1 &1565464699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2045406400836234281, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
+  m_PrefabInstance: {fileID: 913399967}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1565464700 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7925871285973789322, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
+  m_PrefabInstance: {fileID: 913399967}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1593993141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5238,11 +5252,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022199380}
   m_CullTransparentMesh: 1
---- !u!1 &2030589071 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 271768971550061659, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
-  m_PrefabInstance: {fileID: 913399967}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2070243073
 GameObject:
   m_ObjectHideFlags: 0
@@ -5570,7 +5579,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1666533099}
-  - {fileID: 913399968}
+  - {fileID: 1565464700}
   - {fileID: 1220291123}
   - {fileID: 1791302950}
   - {fileID: 289327426}

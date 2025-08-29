@@ -164,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeId: 0
   doughCount: 0
+  image: {fileID: 7639304340698707323}
 --- !u!1 &7835129449831318884
 GameObject:
   m_ObjectHideFlags: 0

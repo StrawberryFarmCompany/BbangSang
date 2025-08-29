@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,8 @@ public class SelectDoughUI : MonoBehaviour
 
     [SerializeField] public Transform doughParent;
     [SerializeField] public GameObject doughPrefab;
-    
+
+    private List<(int recipeId, int count)> doughs = new();
     
     
     public void Init(Oven oven)
@@ -25,9 +27,9 @@ public class SelectDoughUI : MonoBehaviour
         RefreshUI();
     }
 
+
     public void RefreshUI()
     {
-        List<(int recipeId, int count)> doughs = new();
         doughs.Clear();
         BreadManager.Instance.GetAllDough(doughs); // doughs 에 현재 가지고 있는 반죽 아이디 : 개수 들어옴
         ClearDoughs(); // 일단 doughParent 안에 있는 애들 싹 다 지움
@@ -49,7 +51,7 @@ public class SelectDoughUI : MonoBehaviour
     {
         for (int i = 0; i < doughParent.childCount; i++)
         {
-            Destroy(doughParent.GetChild(i));
+            Destroy(doughParent.GetChild(i).gameObject);
         }
     }
 }

@@ -39,6 +39,7 @@ public class OvenUI : MonoBehaviour
         else
         {
             // 오븐이 꺼져있는데 누르면 빵 선택 창 띄우기
+            selectDoughUI.RefreshUI();
             selectDoughUI.gameObject.SetActive(true);
             // OvenOn();
         }

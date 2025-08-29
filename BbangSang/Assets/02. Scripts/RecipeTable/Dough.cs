@@ -7,7 +7,7 @@ public class Dough : MonoBehaviour
 {
     public int recipeId;
     public int doughCount;
-    [SerializeField] public Image image; 
+    public Image image; 
     
     public void Init(int recipeId, int doughCount)
     {
