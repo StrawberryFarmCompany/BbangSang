@@ -5,14 +5,13 @@ using System;
 
 public class CraftingTable : BaseInteractable
 {
-    public GameObject craftingUI;
-    private bool isUIOpen = false;
+    [SerializeField] private CraftingTableUI uiController;
 
     [Header("시간 / 레벨")]
-    public float maxTimeBase = 120f;            // m
-    public float decreasePerLevel = 5f;         // i
-    public int level = 1;
-    public int maxLevel = 10;
+    public float maxTimeBase = 120f;            // 기본 최대 제작 시간
+    public float decreasePerLevel = 5f;         // 레벨당 최대시간 감소량
+    public int level = 1;                       //현재 레벨
+    public int maxLevel = 10;                   //최대 레벨
     public float curTime;                       //남은 시간
 
     public enum CraftStartMode { Manual, AutoOnAwake, AutoOnInteract }
@@ -21,21 +20,27 @@ public class CraftingTable : BaseInteractable
     [SerializeField] private CraftStartMode startMode = CraftStartMode.Manual;
 
     [Header("저장 옵션")]
-    [SerializeField] private bool savePlayerOnUpgrade = true;
-    [SerializeField] private bool justCurrentToNewMax = false;
+    [SerializeField] private bool savePlayerOnUpgrade = true;   //업그레이드 후 저장 여부
 
     private Player player;
 
-    private const long BASE_COST = 500_000;
-    private const double GROWTH = 1.8;
-    private const long ROUND_UNIT = 100_000;
+    //업그레이드 비용 커브
+    private const long baseCost = 500_000;
+    private const double growth = 1.8;
+    private const long roundUnit = 100_000;
 
-    private bool isCrafting = false;
-    private bool craftComplete = false;
+    //상태 구분
+    private bool isCrafting = false;        //제작 중인지
+    private bool craftComplete = false;     //제작 완료인지
     private float _lastLoggedTime = -1f;
 
     [Header("기본 생성 갯수")]
     [SerializeField] private int producedPerBatch = 20;
+
+    [Header("시간 감소")]
+    [SerializeField] private float decreasePerClick = 20f;  //수정 가능 테스트로 20초 감소
+
+    private int craftingRecipeID = 0;   //제작 시점 레시피 ID
 
     private void Awake()
     {
@@ -56,6 +61,7 @@ public class CraftingTable : BaseInteractable
             StartCraft(true);
     }
 
+    //제작 중 타이머 감소 및 완료 확인
     private void Update()
     {
         if (!isCrafting) return;
@@ -70,6 +76,7 @@ public class CraftingTable : BaseInteractable
         }
     }
 
+    //남은 시간 로그
     private void RefreshTimeLog(bool force = false)
     {
         if (force || _lastLoggedTime < 0f || Mathf.Abs(curTime - _lastLoggedTime) >= 0.1f)
@@ -79,36 +86,30 @@ public class CraftingTable : BaseInteractable
         }
     }
 
+    //상호작용
     public override void Interact()
     {
         if (GameManager.Instance.CurGameState != GameState.PreGame) return;
-        
-        craftingUI.SetActive(true);
-        isUIOpen = true;
+
+        uiController.Open();
+
         Debug.Log("제작테이블 열림");
 
         if (startMode == CraftStartMode.AutoOnInteract && !isCrafting)
             StartCraft(true);
     }
 
-    public void CloseUI()
-    {
-        craftingUI.SetActive(false);
-        isUIOpen = false;
-        Debug.Log("제작테이블 닫힘");
-    }
-
-    private int craftingRecipeID = 0;
-
+    //제작 시작
     public void StartCraft(bool resetTime)
     {
         if (isCrafting && !craftComplete) return;
 
         if (!BreadManager.Instance.HasSelection)
         {
-            Debug.LogWarning("������ ���� �� ��, ���� �Ұ�");
+            Debug.LogWarning("레시피 선택 필요");
             return;
         }
+
         craftingRecipeID = BreadManager.Instance.CurrentRecipeID.Value;
 
         if (resetTime) curTime = GetMaxTime();
@@ -120,12 +121,7 @@ public class CraftingTable : BaseInteractable
         RefreshTimeLog(true);
     }
 
-    public void StopCraft()
-    {
-        isCrafting = false;
-        Debug.Log("[CRAFT] 제작 중지");
-    }
-
+    //제작 완료
     private void CompleteCraft()
     {
         craftComplete = true;
@@ -155,27 +151,36 @@ public class CraftingTable : BaseInteractable
     //시간 감소 버튼
     public void DecreaseTime()
     {
-        if (!isCrafting || craftComplete) StartCraft(true);
-
-        if (!craftComplete)
+        if (!isCrafting || craftComplete)
         {
-            curTime = Mathf.Max(0f, curTime - 20f);    //클릭 시 시간 감소 조정 가능
-            RefreshTimeLog(true);
-
-            if (curTime <= 0f)
-            {
-                CompleteCraft();
-            }
-            else
-            {
-                Debug.Log($"[BTN] -0.2s → 남은 {curTime:0.00}초");
-            }
+            StartCraft(true);
+            return;
         }
+
+        curTime = Mathf.Max(0f, curTime - decreasePerClick);
+        RefreshTimeLog(true);
+
+        if (curTime <= 0f)
+        {
+            CompleteCraft();
+        }
+        else
+        {
+            Debug.Log($"[-{decreasePerClick:0.#}s], 남은 {curTime:0.00}초");
+        }
+
     }
 
     //업그레이드 버튼
     public void UpgradeLevel()
     {
+        if (isCrafting && !craftComplete)
+        {
+            Debug.Log("제작 중 업그레이드 불가");
+            return;
+        }
+
+        //최대 레벨 체크
         if (level >= maxLevel)
         {
             Debug.Log("최대 레벨입니다");
@@ -193,48 +198,43 @@ public class CraftingTable : BaseInteractable
         long cost = GetCostForLevel(targetLevel);
         long before = player.Money;
 
+        //비용 지불(실패 시 종료)
         if (!player.TrySpendMoney(cost))
         {
             Debug.Log($"업그레이드 실패: 필요 {cost:N0}원, 보유 {before:N0}원");
             return;
         }
 
-        float oldMax = GetMaxTime();
-
         level = targetLevel;
         player.playerData.craftingTableLevel = level;
 
+        //새로운 최대 시간 계산
         float newMax = GetMaxTime();
 
-        if (justCurrentToNewMax && isCrafting)
-        {
-            curTime = (oldMax > 0f) ? Mathf.Clamp((curTime / oldMax) * newMax, 0f, newMax) : newMax;
-            RefreshTimeLog(true);
-        }
-        else if (!isCrafting)
-        {
-            curTime = newMax;
-            _lastLoggedTime = -1f;
-            RefreshTimeLog(true);
-        }
+        curTime = newMax;
+        _lastLoggedTime = -1f;
+        RefreshTimeLog(true);
 
         if (savePlayerOnUpgrade) player.Save();
 
         Debug.Log($"[업그레이드 성공] -{cost:N0}원 / 잔액 {player.Money:N0}원\n현재 레벨: {level}, 최대 시간: {newMax:0.00}초");
     }
 
+    //레벨 비용 계산
     private long GetCostForLevel(int levelN)
     {
-        double raw = BASE_COST * Math.Pow(GROWTH, levelN - 1);
-        long rounded = (long)(Math.Round(raw / ROUND_UNIT) * ROUND_UNIT);
+        double raw = baseCost * Math.Pow(growth, levelN - 1);
+        long rounded = (long)(Math.Round(raw / roundUnit) * roundUnit);
         return rounded;
     }
 
+    //현재 레벨 기준 최대 제작 시간
     public float GetMaxTime()
     {
         return maxTimeBase - (level - 1) * decreasePerLevel;
     }
 
+    //시간 초기화
     public void ResetTime()
     {
         curTime = GetMaxTime();
