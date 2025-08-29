@@ -34,7 +34,7 @@ public class CraftingTable : BaseInteractable
     private bool craftComplete = false;
     private float _lastLoggedTime = -1f;
 
-    [Header("���� ���")]
+    [Header("기본 생성 갯수")]
     [SerializeField] private int producedPerBatch = 20;
 
     private void Awake()
