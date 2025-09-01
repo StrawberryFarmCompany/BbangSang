@@ -8,14 +8,14 @@ public class Oven : BaseInteractable
     public const float MaxBakeTime = 240f; // 최대 시간 m
 
     [SerializeField] public float reduceTimePerLevel = 10f; // 레벨 당 감소 시간 i
-    private float adjustedBakeTime; // 실제 걸리는 시간
+    private float AdjustedBakeTime { get; set; } // 실제 걸리는 시간
     // 레벨 n일 때 adjustedBakeTime = m - (레벨 * i)
     private float currentBakeTime; 
     
     [Header("Oven Bake Count Settings")]
     public const int MinBakeCount = 100; // 최소 개수 m
     [SerializeField] public int increaseCountPerLevel = 10; // 레벨 당 증가 개수 i
-    private int adjustedBakeCount;
+    public int AdjustedBakeCount { get; set; }
     // 레벨 n일 때 adjustedBakeCount = m + (레벨 * i)
     private int currentBakeCount;
     
@@ -26,6 +26,9 @@ public class Oven : BaseInteractable
     SpriteRenderer spriteRenderer;
     
     public bool IsActive { get; set; }
+
+    public List<(int recipeId, int count)> InOven = new();
+    public int InOvenCount;
     
     private void Start()
     {
@@ -35,6 +38,8 @@ public class Oven : BaseInteractable
         spriteRenderer = GetComponent<SpriteRenderer>();
         
         SettingOvenByLevel();
+        InOven.Clear();
+        InOvenCount = 0;
     }
 
     // 레벨 별 오븐 설정
@@ -42,8 +47,8 @@ public class Oven : BaseInteractable
     public void SettingOvenByLevel()
     {
         ovenLevel = GameManager.Instance.Player.playerData.ovenLevel;
-        adjustedBakeTime = MaxBakeTime - (ovenLevel * reduceTimePerLevel);
-        adjustedBakeCount = MinBakeCount + (ovenLevel * increaseCountPerLevel);
+        AdjustedBakeTime = MaxBakeTime - (ovenLevel * reduceTimePerLevel);
+        AdjustedBakeCount = MinBakeCount + (ovenLevel * increaseCountPerLevel);
     }
     
     public override void Interact()
@@ -56,6 +61,36 @@ public class Oven : BaseInteractable
     public void OvenImageSetting(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
+    }
+
+    // 오븐에 반죽 넣기 시도
+    public bool TryAddDoughToOven(int recipeId, int doughCount)
+    {
+        if (InOvenCount + doughCount <= AdjustedBakeCount)
+        {
+            bool doughInOven = false;
+            for (int i = 0; i < InOven.Count; i++)
+            {
+                if (InOven[i].recipeId == recipeId)
+                {
+                    var inOvenItem = InOven[i];
+                    inOvenItem.count += doughCount;
+                    InOven[i] = inOvenItem;
+                    doughInOven = true;
+                    break;
+                }
+            }
+
+            if (!doughInOven)
+            {
+                InOven.Add((recipeId, doughCount));
+            }
+            
+            InOvenCount += doughCount;
+
+            return true;
+        }
+        else return false;
     }
 
 }
