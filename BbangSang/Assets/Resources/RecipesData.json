@@ -58,10 +58,10 @@
         },
         {
             "ID": 9,
-            "Name": "미정",
+            "Name": "천연 소금빵",
             "RecipePrice": 1800000,
             "BreadPrice": 102,
-            "Description": "미정"
+            "Description": "천일염이 살포시 올라간 소금빵입니다."
         },
         {
             "ID": 10,

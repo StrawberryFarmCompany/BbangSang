@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Bread
+public class Recipe
 {
     public int ID;
     public string Name;
@@ -11,11 +11,18 @@ public class Bread
     public int BreadPrice;
     public string Description;
 
-    [NonSerialized] public Sprite Icon;  // Sprite´Â Unity ¿¡¼ÂÀÌ¹Ç·Î JSON¿¡ ÀúÀåÇÒ ¼ö ¾øÀ½ ±×·¡¼­ NonSerialized »ç¿ë
+    [NonSerialized] public Sprite Icon;  // SpriteëŠ” Unity ì—ì…‹ì´ë¯€ë¡œ JSONì— ì €ì¥í•  ìˆ˜ ì—†ìŒ ê·¸ë˜ì„œ NonSerialized ì‚¬ìš©
+
+    public Sprite GetIcon()
+    {
+        if (Icon == null)
+            Icon = Resources.Load<Sprite>($"Art/{Name}");
+        return Icon;
+    }
 }
 
 [Serializable]
-public class BreadList
+public class RecipeList
 {
-    public List<Bread> Recipes;
+    public List<Recipe> Recipes;
 }

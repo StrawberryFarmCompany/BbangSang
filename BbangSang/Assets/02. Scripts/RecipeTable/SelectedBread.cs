@@ -3,14 +3,14 @@ using UnityEngine.UI;
 
 public class SelectedBread : MonoBehaviour
 {
-    public Image breadIconImage;   // World Space Canvas ¾È Image
-    public Transform Selectedbread;   // ÇÃ·¹ÀÌ¾î ¸Ó¸® À§Ä¡
+    public Image breadIconImage;   // World Space Canvas ì•ˆ Image
+    public Transform Selectedbread;   // í”Œë ˆì´ì–´ ë¨¸ë¦¬ ìœ„ì¹˜
 
     void Update()
     {
         if (breadIconImage.gameObject.activeSelf && Selectedbread != null)
         {
-            // ÇÃ·¹ÀÌ¾î ¸Ó¸® À§¿¡ µû¶ó´Ù´Ïµµ·Ï À§Ä¡ °»½Å
+            // í”Œë ˆì´ì–´ ë¨¸ë¦¬ ìœ„ì— ë”°ë¼ë‹¤ë‹ˆë„ë¡ ìœ„ì¹˜ ê°±ì‹ 
             breadIconImage.transform.position = Selectedbread.position + Vector3.up * 2.0f;
         }
     }
