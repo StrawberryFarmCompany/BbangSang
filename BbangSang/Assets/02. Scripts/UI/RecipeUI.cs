@@ -1,42 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RecipeUI : MonoBehaviour
 {
-    [SerializeField] private Transform breadContext;
-    [SerializeField] private GameObject breadPrefabs;
-
+    [SerializeField] private Button whiteBread;
+    [SerializeField] private Button soboroBread;
     [SerializeField] private Button exit;
     public GameObject recipeInfoPanel;
 
-    public RecipeList breadList { get { return BreadManager.Instance.recipeList; } }
 
     private void Start()
     {
+        //onClickø° √ﬂ∞°
+        whiteBread.onClick.AddListener(WhiteBreadButton);
+        soboroBread.onClick.AddListener(SoboroBreadButton);
         exit.onClick.AddListener(ExitButton);
-
-        LoadRecipes();
     }
 
+    // Ωƒªß ¡§∫∏
+    public void WhiteBreadButton()
+    {
+        recipeInfoPanel.SetActive(true);
+    }
 
-    // Ìå®ÎÑê Îã´Í∏∞
+    // º“∫∏∑Œ ªß ¡§∫∏
+    public void SoboroBreadButton()
+    {
+        recipeInfoPanel.SetActive(true);
+    }
+
+    // ∆–≥Œ ¥›±‚
     public void ExitButton()
     {
         gameObject.SetActive(false);
-    }
-
-    public void LoadRecipes()
-    {
-        for (int i = 0; i < breadList.Recipes.Count; i++)
-        {
-            GameObject newbread = Instantiate(breadPrefabs, breadContext);
-            Recipe recipe = breadList.Recipes[i];
-
-            Bread bread = newbread.GetComponent<Bread>();
-            if (bread != null)
-            {
-                bread.SetBread(recipe); // Ïä¨Î°ØÏóê Îç∞Ïù¥ÌÑ∞ & Ïù¥ÎØ∏ÏßÄ Ï†ÅÏö©
-            }
-        }
     }
 }

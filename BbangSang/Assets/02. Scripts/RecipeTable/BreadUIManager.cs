@@ -1,0 +1,47 @@
+using UnityEngine;
+
+public class BreadUIManager : MonoBehaviour
+{
+    public GameObject breadPanelPrefab;    // BreadPanel 프리팹
+    public Transform panelParent;          // UI 패널들이 붙을 부모 오브젝트
+
+    private BreadList breadList;
+
+    void Start()
+    {
+        LoadBreadData();
+    }
+
+    public void LoadBreadData()
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>("RecipesData");
+        if (jsonFile == null)
+        {
+            Debug.LogError("Error: 'RecipesData' 파일을 찾을 수 없습니다.");
+            return;
+        }
+        breadList = JsonUtility.FromJson<BreadList>(jsonFile.text);
+    }
+
+    public void ShowBreadInfoByID(int id)
+    {
+        foreach (Transform child in panelParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // 조건에 맞는 빵 하나 찾기
+        Bread selectedBread = breadList.Recipes.Find(b => b.ID == id);
+        if (selectedBread != null)
+        {
+            selectedBread.Icon = Resources.Load<Sprite>($"Art/{selectedBread.Name}"); // 아이콘 로드
+
+            GameObject panel = Instantiate(breadPanelPrefab, panelParent);
+            panel.GetComponent<BreadPanel>().SetBreadInfo(selectedBread);
+        }
+        else
+        {
+            Debug.LogWarning($"'{id}' 를 찾을 수 없습니다.");
+        }
+    }
+}

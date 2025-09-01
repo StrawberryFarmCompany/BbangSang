@@ -10,7 +10,7 @@ public class Upgrade : BaseInteractable
         if (upgradeUI != null)
         {
             upgradeUI.SetActive(true);
-            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½");
+            Debug.Log("·¹½ÃÇÇ Å×ÀÌºí º¸±â");
         }
     }
 }

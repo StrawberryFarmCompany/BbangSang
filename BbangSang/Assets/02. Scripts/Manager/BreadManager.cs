@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BreadManager : Singleton<BreadManager>
@@ -12,36 +11,12 @@ public class BreadManager : Singleton<BreadManager>
 
     private readonly Dictionary<int, int> dough = new();
 
-    public RecipeList recipeList { get; private set; }
-    
     public void InitDay(int dayIndex)
     {
         if (CurrentDayIndex == dayIndex) return;
         CurrentDayIndex = dayIndex;
         dough.Clear();
         CurrentRecipeID = null;
-    }
-
-    private void Awake()
-    {
-        LoadRecipeData();
-    }
-
-    
-    public void LoadRecipeData()
-    {
-        TextAsset jsonFile = Resources.Load<TextAsset>("RecipesData");
-        if (jsonFile == null)
-        {
-            Debug.LogError("Error: 'RecipesData' 파일을 찾을 수 없습니다.");
-            return;
-        }
-        recipeList = JsonUtility.FromJson<RecipeList>(jsonFile.text);
-    }
-
-    public Recipe GetRecipe(int id)
-    {
-        return recipeList.Recipes.Find(x => x.ID == id);
     }
 
     public void NextDay()

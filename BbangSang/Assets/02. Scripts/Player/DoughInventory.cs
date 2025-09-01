@@ -20,7 +20,7 @@ public class DoughInventory : Singleton<DoughInventory>
         counts[recipeID] = next;
 
         OnChanged?.Invoke(recipeID, next);
-        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½: id = {recipeID}, ï¿½ï¿½ï¿½ï¿½ = {next}");
+        Debug.Log($"¹ÝÁ× Ãß°¡: id = {recipeID}, ¼ö·® = {next}");
     }
 
     public bool TryConsume(int recipeID, int amount)
@@ -33,7 +33,7 @@ public class DoughInventory : Singleton<DoughInventory>
         else counts[recipeID] = cur;
 
         OnChanged?.Invoke(recipeID, cur);
-        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½Òºï¿½: id = {recipeID}, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ = {cur}");
+        Debug.Log($"¹ÝÁ× ¼Òºñ: id = {recipeID}, ³²Àº ¼ö·® = {cur}");
         return true;
     }
 
