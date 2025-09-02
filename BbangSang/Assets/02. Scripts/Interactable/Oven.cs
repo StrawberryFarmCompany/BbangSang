@@ -22,22 +22,22 @@ public class Oven : BaseInteractable
     
     private int ovenLevel; // 오븐 레벨
     
-    [SerializeField] GameObject ovenUI;
+    [SerializeField] OvenUI ovenUI;
     [SerializeField] GameObject selectDoughUI;
     SpriteRenderer spriteRenderer;
     
     public bool IsActive { get; set; }
+    public bool IsBakeDone { get; set; } = false;
+
+    public Coroutine bakeCoroutine;
 
     public List<(int recipeId, int count)> InOven = new();
     public int InOvenCount;
     
     private void Start()
     {
-        if (ovenUI != null) ovenUI.GetComponent<OvenUI>().Init(this);
-        else Debug.LogError("OvenUI is not assigned in the Oven script.");
-        
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        ovenUI.Init(this);
         SettingOvenByLevel();
         InOven.Clear();
         InOvenCount = 0;
@@ -50,18 +50,53 @@ public class Oven : BaseInteractable
         ovenLevel = GameManager.Instance.Player.playerData.ovenLevel;
         AdjustedBakeTime = MaxBakeTime - (ovenLevel * reduceTimePerLevel);
         AdjustedBakeCount = MinBakeCount + (ovenLevel * increaseCountPerLevel);
+
+
     }
     
     public override void Interact()
     {
         if (GameManager.Instance.CurGameState != GameState.PreGame) return;
         Debug.Log("오븐을 킵니다.");
-        ovenUI.SetActive(true);
+        ovenUI.gameObject.SetActive(true);
     }
 
     public void OvenImageSetting(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
+    }
+
+    public void Bake()
+    {
+        IsActive = true;
+        IsBakeDone = false;
+        bakeCoroutine = StartCoroutine(BakeInTime());
+        foreach (var item in InOven)
+        {
+            BreadManager.Instance.UseDough(item.recipeId, item.count);
+        }
+
+        InOven.Clear();
+        InOvenCount = 0;
+        ovenUI.OvenOn();
+        ovenUI.CloseAllUI();
+    }
+
+    public void GetBakedBread()
+    {
+        foreach (var item in InOven)
+        {
+            BreadManager.Instance.AddBread(item.recipeId, item.count);
+        }
+    }
+
+    public void StopBake()
+    {
+        if(bakeCoroutine != null) StopCoroutine(bakeCoroutine);
+        IsBakeDone = false;
+        IsActive = false;
+        ovenUI.OvenOff();
+        InOven.Clear();
     }
 
     // 오븐에 반죽 넣기 시도
@@ -92,6 +127,18 @@ public class Oven : BaseInteractable
             return true;
         }
         else return false;
+    }
+
+    IEnumerator BakeInTime()
+    {
+        // 테스트용으로 10초
+        yield return new WaitForSecondsRealtime(10f);
+        
+        IsActive = false;
+        bakeCoroutine = null;
+        IsBakeDone = true;
+        ovenUI.OvenOff();
+        Debug.Log("빵 다 구워짐");
     }
 
 }

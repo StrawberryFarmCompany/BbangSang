@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,6 +12,7 @@ public class OvenUI : MonoBehaviour
     [SerializeField] Button activeButton;
     [SerializeField] TextMeshProUGUI activeButtonText;
     [SerializeField] SelectDoughUI selectDoughUI;
+    [SerializeField] OvenWarningUI warningUI;
 
     [Header("Oven Image Settings")]
     [SerializeField] Sprite ovenOffSprite;
@@ -22,21 +24,43 @@ public class OvenUI : MonoBehaviour
     {
         this.oven = oven;
         selectDoughUI.Init(this.oven);
+        warningUI.Init(this.oven);
     }
+
+    private void OnEnable()
+    {
+        if (oven.IsActive)
+        {
+            activeButtonText.text = "오븐 끄기";
+        }
+        
+        else if (oven.IsBakeDone)
+        {
+            activeButtonText.text = "빵 꺼내기";
+        }
+        else
+        {
+            activeButtonText.text = "빵 굽기";
+        }
+    }
+    
 
     public void OnActiveButton()
     {
         if(oven.IsActive)
         {
-            // 오븐이 켜져있을 때
-            // 빵이 구워지는 중이면 
-                // 애초에 안에 빵이 아무것도 없으면 바로 꺼지게
-                // 빵이 있으면 그거 폐기할 건지 물어보기
-            // 빵이 다 구워졌으면
-                // 구워진 빵을 Bread Manager에 Bread에 추가하기
-            OvenOff();
+            // 폐기할건지 물어보기
+            warningUI.gameObject.SetActive(true);
         }
-        else
+        else if (oven.IsBakeDone) // 빵 다 구워졌으면
+        {
+            oven.GetBakedBread();
+            Debug.Log("빵 꺼냄");
+            oven.IsBakeDone = false;
+            gameObject.SetActive(false);
+        }
+        
+        else // 오븐 꺼져있고 빵이 다 구워진것도 아님
         {
             // 오븐이 꺼져있는데 누르면 빵 선택 창 띄우기
             selectDoughUI.RefreshUI();
@@ -64,5 +88,12 @@ public class OvenUI : MonoBehaviour
         ovenImage.sprite = ovenOnSprite;
         activeButtonText.text = "오븐 끄기";
         oven.OvenImageSetting(ovenOnSprite);
+    }
+
+    public void CloseAllUI()
+    {
+        selectDoughUI.gameObject.SetActive(false);
+        warningUI.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

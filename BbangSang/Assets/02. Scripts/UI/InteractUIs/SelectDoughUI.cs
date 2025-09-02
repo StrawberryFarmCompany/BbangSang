@@ -35,6 +35,7 @@ public class SelectDoughUI : MonoBehaviour
     public void RefreshUI()
     {
         doughs.Clear();
+        selectedDoughCount.text = oven.InOvenCount.ToString();
         BreadManager.Instance.GetAllDough(doughs); // doughs 에 현재 가지고 있는 반죽 아이디 : 개수 들어옴
         ClearDoughs(); // 일단 doughParent 안에 있는 애들 싹 다 지움
 
@@ -67,5 +68,10 @@ public class SelectDoughUI : MonoBehaviour
     public void ChangeSelectedDoughCount()
     {
         selectedDoughCount.text = oven.InOvenCount.ToString();
+    }
+
+    public void OnClickBake()
+    {
+        oven.Bake();
     }
 }
