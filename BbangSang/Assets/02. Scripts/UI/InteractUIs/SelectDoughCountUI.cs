@@ -18,6 +18,8 @@ public class SelectDoughCountUI : MonoBehaviour
     private int currentDoughId;
     private int currentDoughCount;
 
+    private int selectDoughCount = 0;
+
     public void Init(Oven oven, SelectDoughUI selectDoughUI)
     {
         this.oven = oven;
@@ -38,6 +40,7 @@ public class SelectDoughCountUI : MonoBehaviour
         if (int.TryParse(text, out int result))
         {
             inputDoughCount.text = Mathf.Min(result, currentDoughCount).ToString();
+            selectDoughCount = int.Parse(inputDoughCount.text);
         }
         else
         {
@@ -47,8 +50,8 @@ public class SelectDoughCountUI : MonoBehaviour
 
     public void SelectDoughToOven()
     {
-        if(inputDoughCount.text == String.Empty || inputDoughCount.text.Length == 0) return;
-        if (oven.TryAddDoughToOven(currentDoughId, currentDoughCount))
+        if(selectDoughCount == 0) return;
+        if (oven.TryAddDoughToOven(currentDoughId, selectDoughCount))
         {
             gameObject.SetActive(false);
             selectDoughUI.ChangeSelectedDoughCount();

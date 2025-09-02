@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Oven : BaseInteractable
@@ -74,7 +75,7 @@ public class Oven : BaseInteractable
                 if (InOven[i].recipeId == recipeId)
                 {
                     var inOvenItem = InOven[i];
-                    inOvenItem.count += doughCount;
+                    inOvenItem.count = doughCount;
                     InOven[i] = inOvenItem;
                     doughInOven = true;
                     break;
@@ -85,8 +86,8 @@ public class Oven : BaseInteractable
             {
                 InOven.Add((recipeId, doughCount));
             }
-            
-            InOvenCount += doughCount;
+
+            InOvenCount = InOven.Sum(x => x.count);
 
             return true;
         }
