@@ -15,7 +15,7 @@ public class DoughListUI : MonoBehaviour
 
     [Header("리스트 아이템 프리팹")]
     [SerializeField] private RectTransform content;
-    [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private DoughListItem itemPrefab;
 
     [Header("아이콘")]
     [SerializeField] private Sprite[] recipeIcons;
@@ -26,26 +26,8 @@ public class DoughListUI : MonoBehaviour
     [SerializeField] private float refreshInterval = 0.2f;
 
     private readonly List<(int recipeId, int count)> _buffer = new();
-    private readonly Dictionary<int, ItemView> _views = new();
+    private readonly Dictionary<int, DoughListItem> _views = new();
     private WaitForSeconds wait;
-
-    private class ItemView
-    {
-        public GameObject go;
-        public Image icon;
-        public TMP_Text count;
-
-        public void Set(Sprite sp, int c, bool show)
-        {
-            if (icon) { icon.sprite = sp; icon.enabled = sp != null; }
-            if (count)
-            {
-                count.gameObject.SetActive(show);
-                if (show) count.text = $"x{c}";
-            }
-            go.SetActive(true);
-        }
-    }
 
     void Awake()
     {
@@ -81,7 +63,7 @@ public class DoughListUI : MonoBehaviour
         bm.GetAllDough(_buffer);
         _buffer.Sort((a, b) => a.recipeId.CompareTo(b.recipeId));
 
-        foreach (var v in _views.Values) v.go.SetActive(false);
+        foreach (var v in _views.Values) v.gameObject.SetActive(false);
 
         foreach (var (id, cnt) in _buffer)
         {
@@ -90,17 +72,14 @@ public class DoughListUI : MonoBehaviour
         }
     }
 
-    private ItemView GetOrCreate(int id)
+    private DoughListItem GetOrCreate(int id)
     {
         if (_views.TryGetValue(id, out var v) && v != null) return v;
 
         var inst = Instantiate(itemPrefab, content);
-        var icon = inst.GetComponentInChildren<Image>(true);
-        var count = inst.GetComponentInChildren<TMP_Text>(true);
-
-        v = new ItemView { go = inst, icon = icon, count = count };
-        _views[id] = v;
-        return v;
+        inst.name = $"Dough_{id}";
+        _views[id] = inst;
+        return inst;
     }
 
     private Sprite GetIconById(int id)
