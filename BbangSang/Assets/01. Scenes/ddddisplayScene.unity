@@ -4092,6 +4092,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6770727374470416894, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770727374470416894, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6872072704587507157, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -4165,6 +4173,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8185694342665867699, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
+      propertyPath: breadParent
+      value: 
+      objectReference: {fileID: 1551721931}
+    - target: {fileID: 8185694342665867699, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
+      propertyPath: breadPrefab
+      value: 
+      objectReference: {fileID: 7368875290297769261, guid: e85b1ddf7405f5b41b8b7d3dc2f9a177, type: 3}
+    - target: {fileID: 8185694342665867699, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
       propertyPath: doughParent
       value: 
       objectReference: {fileID: 1551721931}
@@ -4177,9 +4193,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1127312444}
     - target: {fileID: 8185694342665867699, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
+      propertyPath: displayChooseObj
+      value: 
+      objectReference: {fileID: 1127312444}
+    - target: {fileID: 8185694342665867699, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
       propertyPath: selectDoughCountUI
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8185694342665867699, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
+      propertyPath: selectedBreadCount
+      value: 
+      objectReference: {fileID: 288530391}
     - target: {fileID: 8185694342665867699, guid: d7bd50cbeb12f8f46a252d869c5d79df, type: 3}
       propertyPath: selectedDoughCount
       value: 
