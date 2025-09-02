@@ -11,6 +11,7 @@ public class BreadManager : Singleton<BreadManager>
     public bool HasSelection => CurrentRecipeID.HasValue;
 
     private readonly Dictionary<int, int> dough = new();
+    private readonly Dictionary<int, int> bread = new();
 
     public RecipeList recipeList { get; private set; }
     
@@ -120,6 +121,55 @@ public class BreadManager : Singleton<BreadManager>
     }
 
     public void GetAllDough(List<(int recipeId, int count)> buffer)
+    {
+        buffer.Clear();
+        foreach (var kv in dough)
+            buffer.Add((kv.Key, kv.Value));
+    }
+    
+    public int GetBread(int recipeID) => bread.TryGetValue(recipeID, out var c) ? c : 0;
+
+    public int AddBread(int recipeID, int amount)
+    {
+        if (amount <= 0)
+        {
+            return GetBread(recipeID);
+        }
+
+        int newCount = GetBread(recipeID) + amount;
+        bread[recipeID] = newCount;
+        return newCount;
+    }
+
+    public bool UseBread(int recipeID, int amount)
+    {
+        if (amount <= 0)
+        {
+            return false;
+        }
+
+        int cur = GetBread(recipeID);
+
+        if (cur < amount)
+        {
+            return false;
+        }
+
+        cur -= amount;
+
+        if (cur == 0)
+        {
+            bread.Remove(recipeID);
+        }
+        else
+        {
+            bread[recipeID] = cur;
+        }
+
+        return true;
+    }
+    
+    public void GetAllBread(List<(int recipeId, int count)> buffer)
     {
         buffer.Clear();
         foreach (var kv in dough)
