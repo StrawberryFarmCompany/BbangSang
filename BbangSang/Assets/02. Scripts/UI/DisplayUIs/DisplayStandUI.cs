@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class DisplayStandUI : MonoBehaviour
 {
-    public GameObject displayChoose;
     public Button exit;
     
     public Transform breadParent;
@@ -25,7 +24,7 @@ public class DisplayStandUI : MonoBehaviour
     private void Start()
     {
         exit.onClick.AddListener(ExitButton);
-        if (!breadPrefab.TryGetComponent(out Dough dough))
+        if (!breadPrefab.TryGetComponent(out Dough dough)) //빵으로 변경하기
         {
             Debug.LogError("doughPrefab에 dough 클래스가 없음");
         }
@@ -35,28 +34,33 @@ public class DisplayStandUI : MonoBehaviour
     public void RefreshUI()
     {
         breads.Clear();
-        BreadManager.Instance.GetAllDough(breads); // doughs 에 현재 가지고 있는 반죽 아이디 : 개수 들어옴
-        ClearDoughs(); // 일단 doughParent 안에 있는 애들 싹 다 지움
+        BreadManager.Instance.GetAllDough(breads); // recipeId, count 리스트 받기
+        ClearBreads();
 
         //빵이 있을 때
-        if (breads.Count > 0)
+        if (breads.Count == 0) return;
+        
+        foreach (var bread in breads)
         {
-            foreach(var dough in breads)
+            GameObject go = Instantiate(breadPrefab, breadParent);
+            ProductBread b = go.GetComponent<ProductBread>();
+            int countCopy = bread.count; // 클로저 문제 방지
+            b.Init(bread.recipeId, bread.count, (recipeId, breadCount) =>
             {
-                GameObject go =  Instantiate(breadPrefab, breadParent); //슬롯 생성
-                Dough d = go.GetComponent<Dough>();
-                d.Init(dough.recipeId, dough.count,
-                    (recipeId, doughCount) =>
-                    {
-                        displayChooseUI.Setting(recipeId, dough.count); //수량 세팅
-                        displayChooseUI.gameObject.SetActive(true); //수량 UI 활성화
-                    });
-                go.SetActive(true);
-            }
+                displayChooseUI.Setting(recipeId, countCopy); //수량 세팅
+                displayChooseUI.gameObject.SetActive(true); //수량 UI 활성화
+            });
+            go.SetActive(true);
         }
     }
     
-    void ClearDoughs()
+    public void SetDisplaySelection(int recipeId, int count)
+    {
+        displayChooseUI.Setting(recipeId, count); //선택 UI에 전달한 빵 정보를 반영
+        displayChooseUI.gameObject.SetActive(true);
+    }
+    
+    void ClearBreads()
     {
         for (int i = 0; i < breadParent.childCount; i++)
         {
@@ -70,6 +74,6 @@ public class DisplayStandUI : MonoBehaviour
     
     public void DisplayChooseButton()
     {
-        displayChoose.gameObject.SetActive(true);
+        displayChooseObj.gameObject.SetActive(true);
     }
 }

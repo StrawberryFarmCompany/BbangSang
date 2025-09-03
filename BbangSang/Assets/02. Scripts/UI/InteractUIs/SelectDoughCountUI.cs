@@ -44,7 +44,7 @@ public class SelectDoughCountUI : MonoBehaviour
         }
         else
         {
-            inputDoughCount.text = String.Empty; 
+            inputDoughCount.text = String.Empty;
         }
     }
 

@@ -172,7 +172,7 @@ public class BreadManager : Singleton<BreadManager>
     public void GetAllBread(List<(int recipeId, int count)> buffer)
     {
         buffer.Clear();
-        foreach (var kv in dough)
+        foreach (var kv in bread)
             buffer.Add((kv.Key, kv.Value));
     }
 }

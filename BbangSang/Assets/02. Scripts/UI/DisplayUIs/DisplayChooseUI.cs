@@ -49,14 +49,22 @@ public class DisplayChooseUI : MonoBehaviour
         }
         else //필드 초기화
         {
-            inputBreadCount.text = String.Empty; 
+            inputBreadCount.text = "0";
         }
     }
     
     public void SelectDisplay() //진열하기 눌렀을 때
     {
-        if(selectBreadCount == 0) return; //개수 0이면 무시
+        if(selectBreadCount <= 0) return; //개수 0이면 무시
+        // BreadManager에서 소유 빵 차감
+        //TODO : 화면 UI에 추가
+
+        currentBreadCount -= selectBreadCount; //빵 보유개수 차감
+        Setting(currentBreadId, currentBreadCount);
+        inputBreadCount.text = "0";
+        selectBreadCount = 0;
         
+        gameObject.SetActive(false);
     }
 
     public void ExitButton()

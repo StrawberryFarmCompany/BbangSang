@@ -147,9 +147,9 @@ GameObject:
   - component: {fileID: 8759703427459379272}
   - component: {fileID: 1082506988658450611}
   - component: {fileID: 1265296799769124981}
-  - component: {fileID: -7497669313826265075}
+  - component: {fileID: -1520889350067002212}
   m_Layer: 5
-  m_Name: BreadContent
+  m_Name: ProductBread
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 10, y: -9}
   m_UseGraphicAlpha: 1
---- !u!114 &-7497669313826265075
+--- !u!114 &-1520889350067002212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -293,11 +293,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7368875290297769261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1efb3dd0f0fc394faa73abf4e73cf3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7715fa54dcc9b1543b348864d597d0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   recipeId: 0
-  doughCount: 0
+  breadCount: 0
   image: {fileID: 7639304340698707323}
   count: {fileID: 3575101365163430219}
   button: {fileID: 1082506988658450611}
