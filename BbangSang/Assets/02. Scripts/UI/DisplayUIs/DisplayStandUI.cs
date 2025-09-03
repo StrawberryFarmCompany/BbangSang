@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class DisplayStandUI : MonoBehaviour
 {
-    public GameObject displayStandUI;
     public GameObject displayChoose;
     public Button exit;
     
