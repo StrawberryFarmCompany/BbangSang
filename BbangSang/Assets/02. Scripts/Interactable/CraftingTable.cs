@@ -89,10 +89,15 @@ public class CraftingTable : BaseInteractable
     //상호작용
     public override void Interact()
     {
-        if (GameManager.Instance.CurGameState != GameState.PreGame) return;
+        if (GameManager.Instance == null || GameManager.Instance.CurGameState != GameState.PreGame)
+            return;
+
+        if (uiController == null) return;
+
+        if (!uiController.gameObject.activeSelf)
+            uiController.gameObject.SetActive(true);
 
         uiController.Open();
-
         Debug.Log("제작테이블 열림");
 
         if (startMode == CraftStartMode.AutoOnInteract && !isCrafting)
