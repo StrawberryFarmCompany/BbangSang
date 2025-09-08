@@ -42,6 +42,10 @@ public class CraftingTable : BaseInteractable
 
     private int craftingRecipeID = 0;   //제작 시점 레시피 ID
 
+    public bool IsCrafting => isCrafting;
+    public bool CraftComplete => craftComplete;
+    public int CurrentRecipeIdInProgress => craftingRecipeID;
+
     private void Awake()
     {
         ResetTime();
@@ -245,5 +249,18 @@ public class CraftingTable : BaseInteractable
         curTime = GetMaxTime();
         craftComplete = false;
         _lastLoggedTime = -1;
+    }
+
+    public void AbortAndResetProgress()
+    {
+        if (isCrafting || craftComplete)
+        {
+            Debug.LogWarning("[CRAFT] 진행 중이던 제작을 폐기하고 시간을 초기화합니다.");
+        }
+
+        isCrafting = false;
+        craftComplete = false;
+        craftingRecipeID = 0;   // 진행 레시피 ID 비움
+        ResetTime();
     }
 }
