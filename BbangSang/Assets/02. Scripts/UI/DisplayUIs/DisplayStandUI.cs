@@ -28,7 +28,7 @@ public class DisplayStandUI : MonoBehaviour
         {
             Debug.LogError("BreadPrefab에 Bread 클래스가 없음");
         }
-        RefreshUI();
+        FindAnyObjectByType<PlayerControl>().OnUpdateUI+= RefreshUI;
     }
     
     public void RefreshUI()
@@ -42,6 +42,7 @@ public class DisplayStandUI : MonoBehaviour
         
         foreach (var bread in breads)
         {
+            Debug.Log($"내가 가진 빵 - RecipeId: {bread.recipeId}, Count: {bread.count}");
             GameObject go = Instantiate(breadPrefab, breadParent);
             ProductBread b = go.GetComponent<ProductBread>();
             int countCopy = bread.count; // 클로저 문제 방지

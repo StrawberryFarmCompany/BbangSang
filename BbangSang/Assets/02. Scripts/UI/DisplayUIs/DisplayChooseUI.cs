@@ -15,6 +15,7 @@ public class DisplayChooseUI : MonoBehaviour
     public TMP_InputField inputBreadCount;
     
     private DisplayStandUI DisplayStandUI;
+    private DisplayStand DisplayStand;
     
     private int currentBreadId;
     private int currentBreadCount;
@@ -55,6 +56,7 @@ public class DisplayChooseUI : MonoBehaviour
     
     public void SelectDisplay() //진열하기 눌렀을 때
     {
+        Debug.Log(selectBreadCount);
         if(selectBreadCount <= 0) return; //개수 0이면 무시
 
         bool breadDisplay = BreadManager.Instance.UseBread(currentBreadId, selectBreadCount);
@@ -62,16 +64,20 @@ public class DisplayChooseUI : MonoBehaviour
         {
             Debug.LogWarning("소유한 빵이 부족합니다");
         }
-        // 진열된 빵 1개 이상 있으면 이미지 변경하기
+
+        if (selectBreadCount > 0) // 진열된 빵 1개 이상 있으면 이미지 변경하기
+        {
+            DisplayStand.FullDisplayImage();
+        }
 
         currentBreadCount -= selectBreadCount; //빵 보유개수 차감
-        Setting(currentBreadId, currentBreadCount);
-        inputBreadCount.text = "0";
+        Setting(currentBreadId, currentBreadCount); //UI 갱신
+        inputBreadCount.text = "0"; //입력 필드 초기화
         selectBreadCount = 0;
         
         gameObject.SetActive(false);
     }
-
+    
     public void ExitButton()
     {
         gameObject.SetActive(false);

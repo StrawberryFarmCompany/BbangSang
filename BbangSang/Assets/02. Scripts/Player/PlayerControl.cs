@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     protected Rigidbody2D _rigidbody;
+    public Action OnUpdateUI;
 
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private float speed;
@@ -77,6 +78,7 @@ public class PlayerControl : MonoBehaviour
                 Debug.Log($"{hit.collider.name}");
                 BaseInteractable baseInteractable = hit.collider.GetComponent<BaseInteractable>();
                 baseInteractable?.Interact();
+                OnUpdateUI?.Invoke();
             }
         }
     }
