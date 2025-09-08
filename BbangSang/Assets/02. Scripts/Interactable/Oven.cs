@@ -71,32 +71,38 @@ public class Oven : BaseInteractable
         IsActive = true;
         IsBakeDone = false;
         bakeCoroutine = StartCoroutine(BakeInTime());
-        foreach (var item in InOven)
-        {
-            BreadManager.Instance.UseDough(item.recipeId, item.count);
-        }
-
-        InOven.Clear();
-        InOvenCount = 0;
         ovenUI.OvenOn();
         ovenUI.CloseAllUI();
     }
 
     public void GetBakedBread()
     {
+        Debug.Log($"{InOven.Count}");
         foreach (var item in InOven)
         {
             BreadManager.Instance.AddBread(item.recipeId, item.count);
         }
+
+        TrashBread();
     }
 
+    public void TrashBread()
+    {
+        foreach (var item in InOven)
+        {
+            BreadManager.Instance.UseDough(item.recipeId, item.count);
+        }
+        InOven.Clear();
+        InOvenCount = 0;
+    }
+    
     public void StopBake()
     {
         if(bakeCoroutine != null) StopCoroutine(bakeCoroutine);
         IsBakeDone = false;
         IsActive = false;
+        TrashBread();
         ovenUI.OvenOff();
-        InOven.Clear();
     }
 
     // 오븐에 반죽 넣기 시도
