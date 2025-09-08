@@ -18,21 +18,30 @@ public class CraftingTableUI : MonoBehaviour
 
     private void Awake()
     {
-        panel.SetActive(false);
-        btnStart.onClick.AddListener(craft.DecreaseTime);
-        btnUpgrade.onClick.AddListener(craft.UpgradeLevel);
-        btnClose.onClick.AddListener(Close);
+        if (craft == null) craft = GetComponentInParent<CraftingTable>();
+
+        btnStart?.onClick.AddListener(() => craft.DecreaseTime());
+        btnUpgrade?.onClick.AddListener(() => craft.UpgradeLevel());
+        btnClose?.onClick.AddListener(Close);
     }
 
     public void Open()
     {
-        panel.SetActive(true);
+        if (isUIOpen) return;
+
+        if (gameObject.activeSelf) gameObject.SetActive(true);
+
+        if (panel != null && !panel.activeSelf) panel.SetActive(true);
+
         isUIOpen = true;
     }
 
     public void Close()
     {
-        panel.SetActive(false);
+        if (!isUIOpen) return;
+
+        if (panel != null && panel.activeSelf) panel.SetActive(false);        
+
         isUIOpen = false;
     }
 }
