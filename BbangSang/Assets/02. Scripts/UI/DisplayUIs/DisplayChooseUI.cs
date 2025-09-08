@@ -56,8 +56,13 @@ public class DisplayChooseUI : MonoBehaviour
     public void SelectDisplay() //진열하기 눌렀을 때
     {
         if(selectBreadCount <= 0) return; //개수 0이면 무시
-        // BreadManager에서 소유 빵 차감
-        //TODO : 화면 UI에 추가
+
+        bool breadDisplay = BreadManager.Instance.UseBread(currentBreadId, selectBreadCount);
+        if (!breadDisplay) //전시할 빵이 없으면
+        {
+            Debug.LogWarning("소유한 빵이 부족합니다");
+        }
+        // 진열된 빵 1개 이상 있으면 이미지 변경하기
 
         currentBreadCount -= selectBreadCount; //빵 보유개수 차감
         Setting(currentBreadId, currentBreadCount);

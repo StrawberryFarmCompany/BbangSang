@@ -24,9 +24,9 @@ public class DisplayStandUI : MonoBehaviour
     private void Start()
     {
         exit.onClick.AddListener(ExitButton);
-        if (!breadPrefab.TryGetComponent(out Dough dough)) //빵으로 변경하기
+        if (!breadPrefab.TryGetComponent(out ProductBread productBread)) //빵으로 변경하기
         {
-            Debug.LogError("doughPrefab에 dough 클래스가 없음");
+            Debug.LogError("BreadPrefab에 Bread 클래스가 없음");
         }
         RefreshUI();
     }
@@ -34,7 +34,7 @@ public class DisplayStandUI : MonoBehaviour
     public void RefreshUI()
     {
         breads.Clear();
-        BreadManager.Instance.GetAllDough(breads); // recipeId, count 리스트 받기
+        BreadManager.Instance.GetAllBread(breads); // recipeId, count 리스트 받기
         ClearBreads();
 
         //빵이 있을 때
