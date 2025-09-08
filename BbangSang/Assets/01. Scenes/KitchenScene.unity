@@ -409,7 +409,7 @@ PrefabInstance:
     - target: {fileID: 9061492008030571217, guid: 6315a1a9c8df6894998ce754abc6d7bc, type: 3}
       propertyPath: ovenUI
       value: 
-      objectReference: {fileID: 1565464699}
+      objectReference: {fileID: 1565464701}
     - target: {fileID: 9061492008030571217, guid: 6315a1a9c8df6894998ce754abc6d7bc, type: 3}
       propertyPath: selectDoughUI
       value: 
@@ -3826,16 +3826,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560956809}
   m_CullTransparentMesh: 1
---- !u!1 &1565464699 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2045406400836234281, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
-  m_PrefabInstance: {fileID: 913399967}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1565464700 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7925871285973789322, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
   m_PrefabInstance: {fileID: 913399967}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1565464701 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4601422473462340882, guid: 9de3535a4903bb24f9d7cf437cc17c15, type: 3}
+  m_PrefabInstance: {fileID: 913399967}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62a3a14de3109647a7af72505c66fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1593993141
 PrefabInstance:
   m_ObjectHideFlags: 0
